@@ -1,6 +1,10 @@
 package com.bank.app.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "account")
@@ -9,16 +13,29 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_no")
+    @Pattern(regexp = "[0-9]{9,18}")
     private Integer account_no;
 
     @Column(name = "account_type")
-    private String account_type;
+    @Enumerated(EnumType.STRING)
+    private StatusEnum account_type;
 
     @Column(name = "user_id")
     private Integer user_id;
 
     @Column(name = "balance")
-    private Float balance;
+    @Min(value = 1000)
+    @NotBlank(message = "Minimum balance should be 1000")
+    private float balance;
+
+    @Column(name = "ifsc_code")
+    @Pattern(regexp = "^[A-Z]{4}0[A-Z0-9]{6}$")
+    @NotNull(message = "Please provide valid IFSC code")
+    private String IFSC;
+
+    public enum StatusEnum {
+        Savings, Current
+    }
 
     @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
@@ -32,11 +49,11 @@ public class Account {
         this.account_no = account_no;
     }
 
-    public String getAccount_type() {
+    public StatusEnum getAccount_type() {
         return account_type;
     }
 
-    public void setAccount_type(String account_type) {
+    public void setAccount_type(StatusEnum account_type) {
         this.account_type = account_type;
     }
 
@@ -48,11 +65,19 @@ public class Account {
         this.user_id = user_id;
     }
 
-    public Float getBalance() {
+    public float getBalance() {
         return balance;
     }
 
-    public void setBalance(Float balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
+    }
+
+    public String getIFSC() {
+        return IFSC;
+    }
+
+    public void setIFSC(String IFSC) {
+        this.IFSC = IFSC;
     }
 }
