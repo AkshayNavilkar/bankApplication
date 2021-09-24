@@ -69,7 +69,7 @@ public class TransactionServiceImpl implements ITransactionService {
             currentAmount2 -= transactionAmount;
             return transactionAmount + " Rs credited.";
         }else{
-            throw new AccountNotFoundException();
+            throw new AccountNotFoundException("Account doesn't exist",accountNo);
         }
 
     }

@@ -1,7 +1,7 @@
 package com.bank.app.controller;
 
+import com.bank.app.impl.AccountServiceImpl;
 import com.bank.app.model.Account;
-import com.bank.app.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 public class AccountController {
 
     @Autowired
-    private IAccountService accountService;
+    private AccountServiceImpl accountService;
 
     @PostMapping("account")
     public ResponseEntity<Account> createAccount(@RequestBody Account newAccount) {

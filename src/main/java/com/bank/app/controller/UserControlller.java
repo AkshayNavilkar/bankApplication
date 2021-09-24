@@ -38,9 +38,9 @@ public class UserControlller {
     	return new ResponseEntity<List<User>>(userService.getAllActiveUser(),HttpStatus.OK);
     }
 
-    @PostMapping("/userlogin/{user_id}/{password}")
-    public @ResponseBody
-    Account userlogin(@PathVariable Integer user_id, @PathVariable String password) throws JsonProcessingException {
-        return userService.validatelogin(user_id, password);
-    }
+//    @PostMapping("/userlogin/{user_id}/{password}")
+//    public @ResponseBody
+//    Account userlogin(@PathVariable Integer user_id, @PathVariable String password) throws JsonProcessingException {
+//        return userService.validatelogin(user_id, password);
+//    }
 }
