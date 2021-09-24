@@ -32,7 +32,7 @@ public class User {
     private String user_pan;
 
     @Column(name = "user_uid")
-    private Long user_uid;
+    private String user_uid;
 
     @Column(name = "date_of_birth")
     private String date_of_birth;
@@ -94,11 +94,14 @@ public class User {
         return f_name;
     }
 
-    public void setF_name(String f_name) throws Exception {
-    	if(StringUtils.isAlpha(f_name))
+    public void setF_name(String f_name){
+
+        Pattern pattern=Pattern.compile("^[A-Za-z]\\w{5,29}$");
+        Matcher matcher = pattern.matcher(f_name);
+        if(matcher.matches())
             this.f_name = f_name;
         else
-            throw new Exception("Invalid First name must contain only alphabets.");
+            System.out.println("Invalid fname");
     }
 
     public String getM_name() {
@@ -135,13 +138,13 @@ public class User {
         this.user_pan = user_pan;
     }
 
-    public Long getUser_uid() {
+    public String getUser_uid() {
         return user_uid;
     }
 
-    public void setUser_uid(Long user_uid)throws Exception {
+    public void setUser_uid(String user_uid)throws Exception {
     	Pattern pattern=Pattern.compile("^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$");
-    	Matcher matcher = pattern.matcher(String.valueOf(user_uid));
+    	Matcher matcher = pattern.matcher(user_uid);
     	if(matcher.matches())
     		this.user_uid = user_uid;
     	else throw new Exception(" Enter Valid User adhar Number ");
