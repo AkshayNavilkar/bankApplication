@@ -77,14 +77,16 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public User validateUserByEmail(Integer otp, String user_name) {
 
-        User user = new User();
+        User user = null;
 		try {
             user = userRepository.getByUserName(user_name);
             if(user.getOtp().equals(otp)) {
-                    user.setIsactive(true);
-                    user.setOtp(0);
-                }
-		}catch(Exception e) {
+                user.setIsactive(true);
+                user.setOtp(0);
+            }
+            else
+                throw new ValidationFailedException("Enter Valid OTP or user_name");
+        }catch(Exception e) {
 			throw new ValidationFailedException("Enter Valid OTP or user_name");
 		}
 		return	userRepository.save(user);
@@ -103,8 +105,6 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Account validatelogin(String user_name, String password) throws ValidationFailedException{
         Account result = null;
-
-        // validation of username and password
         try {
             User found_user = userRepository.getByUserName(user_name);
             if(found_user.getPassword().equals(password)) {
