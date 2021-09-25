@@ -103,6 +103,8 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Account validatelogin(String user_name, String password) throws ValidationFailedException{
         Account result = null;
+
+        // validation of username and password
         try {
             User found_user = userRepository.getByUserName(user_name);
             if(found_user.getPassword().equals(password)) {
