@@ -1,5 +1,7 @@
 package com.bank.app.impl;
 
+import com.bank.app.exception.SendingFailedException;
+import com.bank.app.exception.ValidationFailedException;
 import com.bank.app.model.Account;
 import com.bank.app.model.User;
 import com.bank.app.repository.AccountRepository;
@@ -54,7 +56,7 @@ public class UserServiceImpl implements IUserService {
             System.out.println(response.getBody());
             System.out.println(response.getHeaders());
         } catch (IOException ex) {
-            ex.printStackTrace();
+            throw new SendingFailedException("Failed to send OTP");
         }
         user.setF_name(user.getF_name());
         user.setM_name(user.getM_name());
@@ -75,15 +77,17 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public User validateUserByEmail(Integer otp, String user_name) {
 
-		User user = userRepository.getByUserName(user_name);
-		
+        User user = null;
 		try {
-			if(user.getOtp().equals(otp)) {
-				user.setIsactive(true);
-				user.setOtp(0);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
+            user = userRepository.getByUserName(user_name);
+            if(user.getOtp().equals(otp)) {
+                user.setIsactive(true);
+                user.setOtp(0);
+            }
+            else
+                throw new ValidationFailedException("Enter Valid OTP or user_name");
+        }catch(Exception e) {
+			throw new ValidationFailedException("Enter Valid OTP or user_name");
 		}
 		return	userRepository.save(user);
 	}
@@ -99,12 +103,23 @@ public class UserServiceImpl implements IUserService {
 	}
 
     @Override
-    public Account validatelogin(String user_name, String password){
-        User found_user = userRepository.getByUserName(user_name);
-        Account found_account = accountRepository.getAccountDetailsAfterLogin(user_name);
+    public Account validatelogin(String user_name, String password) throws ValidationFailedException{
         Account result = null;
-        if(found_user.getUser_name().equals(user_name) && found_user.getPassword().equals(password))
-            result = found_account;
+        try {
+            User found_user = userRepository.getByUserName(user_name);
+            if(found_user.getPassword().equals(password)) {
+                Account found_account = accountRepository.getAccountDetailsAfterLogin(user_name);
+
+                if (found_user.getUser_name().equals(user_name) && found_user.getPassword().equals(password))
+                    result = found_account;
+            }
+            else
+                throw new ValidationFailedException("Enter Valid user_name or password");
+
+        }
+        catch (Exception e){
+            throw new ValidationFailedException("Enter Valid user_name or password");
+        }
         return result;
     }
 

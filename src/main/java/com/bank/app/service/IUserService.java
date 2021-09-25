@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IUserService {
 	
-    User createUser(User user) throws Exception;
+    User createUser(User user);
     User validateUserByEmail(Integer otp, String user_name);
     List<User> getAllUser();
     List<User> getAllActiveUser();

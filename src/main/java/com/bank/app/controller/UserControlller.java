@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,8 +20,8 @@ public class UserControlller {
     private IUserService userService;
 
     @PostMapping("/saveuser")
-    public ResponseEntity<User> createUser(@RequestBody User user) throws Exception {
-    	return new ResponseEntity<User>(userService.createUser(user),HttpStatus.CREATED);
+    public @ResponseBody User createUser(@Valid @RequestBody User user) {
+    	return userService.createUser(user);
     }
     
     @PutMapping("/user/otp/{otp}/{user_name}")
