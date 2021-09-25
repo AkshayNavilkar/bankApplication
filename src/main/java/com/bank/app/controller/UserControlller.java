@@ -19,13 +19,13 @@ public class UserControlller {
     private IUserService userService;
 
     @PostMapping("/saveuser")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) throws Exception {
     	return new ResponseEntity<User>(userService.createUser(user),HttpStatus.CREATED);
     }
     
-    @PutMapping("/user/otp/{otp}/{userId}")
-    public ResponseEntity<User> validateUser(@PathVariable("otp") Integer otp,@PathVariable("userId") Integer userId){
-    	return new ResponseEntity<User>(userService.validateUserByEmail(otp, userId),HttpStatus.OK);
+    @PutMapping("/user/otp/{otp}/{user_name}")
+    public ResponseEntity<User> validateUser(@PathVariable("otp") Integer otp,@PathVariable("user_name") String user_name){
+    	return new ResponseEntity<User>(userService.validateUserByEmail(otp, user_name),HttpStatus.OK);
     }
     
     @GetMapping("/getallUsers")
@@ -38,9 +38,9 @@ public class UserControlller {
     	return new ResponseEntity<List<User>>(userService.getAllActiveUser(),HttpStatus.OK);
     }
 
-    @PostMapping("/userlogin/{user_id}/{password}")
+    @PostMapping("/userlogin/{user_name}/{password}")
     public @ResponseBody
-    Account userlogin(@PathVariable Integer user_id, @PathVariable String password) throws JsonProcessingException {
-        return userService.validatelogin(user_id, password);
+    Account userlogin(@PathVariable String user_name, @PathVariable String password) throws JsonProcessingException {
+        return userService.validatelogin(user_name, password);
     }
 }

@@ -17,7 +17,7 @@ public class AccountServiceImpl implements IAccountService {
     {
         account.setAccount_type(account.getAccount_type());
         account.setBalance(account.getBalance());
-        account.setUser_id(account.getUser_id());
+        account.setUser_name(account.getUser_name());
 
         return accountRepository.save(account);
     }

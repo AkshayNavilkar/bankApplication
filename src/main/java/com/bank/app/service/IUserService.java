@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface IUserService {
 	
-    User createUser(User user);
-    User validateUserByEmail(Integer otp, Integer user_Id);
+    User createUser(User user) throws Exception;
+    User validateUserByEmail(Integer otp, String user_name);
     List<User> getAllUser();
     List<User> getAllActiveUser();
-    Account validatelogin(Integer user_id, String password) throws JsonProcessingException;
+    Account validatelogin(String user_name, String password) throws JsonProcessingException;
 }

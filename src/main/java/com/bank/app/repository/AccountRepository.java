@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
-    @Query(value = "Select * from account a where a.user_id = ?", nativeQuery = true)
-    Account getAccountDetailsAfterLogin(Integer userid);
+    @Query(value = "Select * from account a where a.user_name = ?", nativeQuery = true)
+    Account getAccountDetailsAfterLogin(String user_name);
 }

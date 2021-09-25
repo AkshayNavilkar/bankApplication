@@ -30,7 +30,7 @@ public class UserServiceImpl implements IUserService {
     AccountRepository accountRepository;
     
     @Override
-    public User createUser(User user) {
+    public User createUser(User user){
     	
         Email from = new Email("akshay2navilkar@gmail.com");
         String subject = "Email OTP Verification";
@@ -56,17 +56,26 @@ public class UserServiceImpl implements IUserService {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
+        user.setF_name(user.getF_name());
+        user.setM_name(user.getM_name());
+        user.setL_name(user.getL_name());
+        user.setUser_pan(user.getUser_pan());
+        user.setPassword(user.getPassword());
+        user.setUser_uid(user.getUser_uid());
+        user.setUser_email(user.getUser_email());
         user.setUser_name(user.getF_name(), user.getL_name());
+        user.setAddress(user.getAddress());
+        user.setMobileno(user.getMobileno());
+        user.setDate_of_birth(user.getDate_of_birth());
         user.setIsactive(false);
         user.setOtp(otp);
         return userRepository.save(user);
     }
 
 	@Override
-	public User validateUserByEmail(Integer otp, Integer user_Id) {
+	public User validateUserByEmail(Integer otp, String user_name) {
 
-		User user = userRepository.findById(user_Id).get();
+		User user = userRepository.getByUserName(user_name);
 		
 		try {
 			if(user.getOtp().equals(otp)) {
@@ -90,11 +99,11 @@ public class UserServiceImpl implements IUserService {
 	}
 
     @Override
-    public Account validatelogin(Integer user_id, String password) throws JsonProcessingException {
-        User found_user = userRepository.getById(user_id);
-        Account found_account = accountRepository.getAccountDetailsAfterLogin(user_id);
+    public Account validatelogin(String user_name, String password){
+        User found_user = userRepository.getByUserName(user_name);
+        Account found_account = accountRepository.getAccountDetailsAfterLogin(user_name);
         Account result = null;
-        if(found_user.getUser_id() == user_id && found_user.getPassword().equals(password))
+        if(found_user.getUser_name().equals(user_name) && found_user.getPassword().equals(password))
             result = found_account;
         return result;
     }

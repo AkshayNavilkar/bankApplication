@@ -12,9 +12,8 @@ import java.util.regex.Pattern;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Integer user_id;
+    @Column(name = "user_name")
+    private String user_name;
 
     @Column(name = "f_name")
     private String f_name;
@@ -24,9 +23,6 @@ public class User {
 
     @Column(name = "l_name")
     private String l_name;
-
-    @Column(name = "user_name")
-    private String user_name;
 
     @Column(name = "user_pan")
     private String user_pan;
@@ -45,9 +41,31 @@ public class User {
 
     @Column(name = "isactive")
     private Boolean isactive;
-    
+
     @Column(name = "otp")
     private Integer otp;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "mobileno")
+    private Long mobileno;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Long getMobileno() {
+        return mobileno;
+    }
+
+    public void setMobileno(Long mobileno) {
+        this.mobileno = mobileno;
+    }
 
     public Integer getOtp() {
 		return otp;
@@ -69,24 +87,16 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) throws Exception {
-    	Pattern p = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*., ?]).+$");
-    	Matcher m = p.matcher(password);
-    	if (m.matches())
+    public void setPassword(String password){
     		this.password = password;
-    	else
-    		throw new Exception("Invalid Password !!!");
     }
 
     public String getUser_email() {
         return user_email;
     }
 
-    public void setUser_email(String user_email) throws Exception{
-    	if(EmailValidator.getInstance().isValid(user_email))
+    public void setUser_email(String user_email){
             this.user_email = user_email;
-        else
-            throw new Exception("Enter valid Email ID");
     }
 
     public String getF_name() {
@@ -96,34 +106,25 @@ public class User {
 
     public void setF_name(String f_name){
 
-        Pattern pattern=Pattern.compile("^[A-Za-z]\\w{5,29}$");
-        Matcher matcher = pattern.matcher(f_name);
-        if(matcher.matches())
+
             this.f_name = f_name;
-        else
-            System.out.println("Invalid fname");
     }
 
     public String getM_name() {
         return m_name;
     }
 
-    public void setM_name(String m_name) throws  Exception{
-    	if(StringUtils.isAlpha(m_name))
+    public void setM_name(String m_name){
             this.m_name = m_name;
-        else
-            throw new Exception("Invalid Middle name must contain only alphabets.");
     }
 
     public String getL_name() {
         return l_name;
     }
 
-    public void setL_name(String l_name) throws Exception {
+    public void setL_name(String l_name){
     	if(StringUtils.isAlpha(l_name))
             this.l_name = l_name;
-        else
-            throw new Exception("Invalid Last name must contain only alphabets.");
     }
 
     public String getUser_name() {
@@ -142,32 +143,16 @@ public class User {
         return user_uid;
     }
 
-    public void setUser_uid(String user_uid)throws Exception {
-    	Pattern pattern=Pattern.compile("^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$");
-    	Matcher matcher = pattern.matcher(user_uid);
-    	if(matcher.matches())
+    public void setUser_uid(String user_uid){
     		this.user_uid = user_uid;
-    	else throw new Exception(" Enter Valid User adhar Number ");
     }
 
     public String getDate_of_birth() {
         return date_of_birth;
     }
 
-    public void setDate_of_birth(String date_of_birth) throws Exception {
-    	Pattern pattern=Pattern.compile("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$");
-    	Matcher matcher = pattern.matcher(date_of_birth);
-    	if(matcher.matches())
+    public void setDate_of_birth(String date_of_birth){
     	    this.date_of_birth = date_of_birth;
-    	else throw new Exception(" Enter Valid DOB ");
-    }
-
-    public Integer getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
     }
 
     public void setUser_name(String f_name, String l_name) {
