@@ -1,0 +1,249 @@
+{
+	"info": {
+		"_postman_id": "94e12d9f-f421-47fa-8488-6f8887e00bc7",
+		"name": "BankApplication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "Create Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"account_type\":\"Savings\",\n\t\"userName\": 102,\n\t\"balance\": 1000,\n\t\"IFSC\":\"\"\n}"
+						},
+						"url": {
+							"raw": "localhost:9090/api/account",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deposit",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"balance\":1500\n}"
+						},
+						"url": {
+							"raw": "localhost:9090/api/account/deposit/101/500",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"account",
+								"deposit",
+								"101",
+								"500"
+							]
+						},
+						"description": "Fetching accounts by user id"
+					},
+					"response": []
+				},
+				{
+					"name": "Account By UserName",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "localhost:9090/api/account/userName/ac",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"account",
+								"userName",
+								"ac"
+							]
+						},
+						"description": "Get all account details"
+					},
+					"response": []
+				},
+				{
+					"name": "All accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9090/api/accounts",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Balance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9090/api/account/balance/ac/101",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"account",
+								"balance",
+								"ac",
+								"101"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Account by AccountNumber",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9090/api/account/accountNumber/101",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"account",
+								"accountNumber",
+								"101"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Add Transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"transaction_type\":false,\n\t\"transactionAmount\":500,\n\t\"account_no\":101,\n\t\"beneficiaryAccount_no\":102,\n\t\"closingBalance\":0\n}"
+						},
+						"url": {
+							"raw": "localhost:9090/api/transaction",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"transaction"
+							]
+						},
+						"description": "add transaction to the perticuler account number"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Balance",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \n    \"closingBalance\": 0\n}"
+						},
+						"url": {
+							"raw": "localhost:9090/api/transaction/1/101",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"transaction",
+								"1",
+								"101"
+							]
+						},
+						"description": "updating balance based on transaction amount"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transaction By AccountNumber",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9090/api/transaction/accountNumber/101",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"transaction",
+								"accountNumber",
+								"101"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
