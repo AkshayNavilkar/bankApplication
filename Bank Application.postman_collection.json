@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fa7e554b-0856-4ee1-bd1b-d18a746995b5",
+		"_postman_id": "0c2e5cb6-6bef-462c-af1c-2deef35c6510",
 		"name": "Bank Application",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -38,7 +38,7 @@
 					"response": []
 				},
 				{
-					"name": "Update User Detailes",
+					"name": "Update User Details",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -68,7 +68,7 @@
 					"response": []
 				},
 				{
-					"name": "Email OPT Validation",
+					"name": "Email OTP Validation",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -91,11 +91,23 @@
 					"response": []
 				},
 				{
-					"name": "Resend Otp",
+					"name": "Resend OTP",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8080/api/resentOtp/dayaViveki7952",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"resentOtp",
+								"dayaViveki7952"
+							]
+						}
 					},
 					"response": []
 				},
@@ -142,7 +154,7 @@
 					"response": []
 				},
 				{
-					"name": "Get all active User",
+					"name": "Get all active Users",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -166,7 +178,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8080/api/getallinactiveusers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getallinactiveusers"
+							]
+						}
 					},
 					"response": []
 				},
@@ -221,7 +244,9 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
