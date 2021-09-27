@@ -19,7 +19,7 @@ public class AccountController {
     private AccountServiceImpl accountService;
 
     @PostMapping("account")
-    public ResponseEntity<Account> createAccount(@Valid @RequestBody Account newAccount) {
+    public ResponseEntity<Account> createAccount(@RequestBody Account newAccount) {
         Account account = accountService.createAccount(newAccount);
         return new ResponseEntity<>(account, HttpStatus.CREATED);
     }
