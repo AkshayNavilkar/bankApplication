@@ -17,15 +17,14 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private StatusEnum account_type;
 
-    @Column(name = "user_id")
-    private Integer user_id;
+    @Column(name = "user_name")
+    private String user_name;
 
     @Column(name = "balance")
     @DecimalMin(value = "1000",message = "")
     private Float balance;
 
     @Column(name = "ifsc_code")
-//    @Pattern(regexp = "^[A-Z]{4}0[A-Z0-9]{6}$")
     private String IFSC;
 
     public enum StatusEnum {
@@ -52,12 +51,12 @@ public class Account {
         this.account_type = account_type;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public float getBalance() {

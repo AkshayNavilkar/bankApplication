@@ -8,9 +8,9 @@ public interface IAccountService {
 
     Account createAccount(Account account);
     Account getByAccountNumber(Integer accountNumber);
-    Account getByUserId(Integer userId);
+    Account getByUserName(String userName);
     Account depositBalance(Integer accountNo, Float balance);
     List<Account> getAllAccount();
-    float getBalanceOfUser(Integer userId,Integer accountNumber);
+    float getBalanceOfUser(String userName,Integer accountNumber);
 
 }

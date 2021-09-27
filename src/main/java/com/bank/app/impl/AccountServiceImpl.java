@@ -20,7 +20,7 @@ public class AccountServiceImpl implements IAccountService {
     {
         account.setAccount_type(account.getAccount_type());
         account.setBalance(account.getBalance());
-        account.setUser_id(account.getUser_id());
+        account.setUser_name(account.getUser_name());
         account.setIFSC("BANK0005943");
         return accountRepository.save(account);
     }
@@ -44,8 +44,8 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public Account getByUserId(Integer userId) {
-        return accountRepository.getAllAccountByUserId(userId);
+    public Account getByUserName(String userName) {
+        return accountRepository.getAllAccountByUserName(userName);
     }
     @Override
     public List<Account> getAllAccount() {
@@ -53,10 +53,10 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public float getBalanceOfUser(Integer userId, Integer accountNumber) {
+    public float getBalanceOfUser(String userName, Integer accountNumber) {
         Account account = accountRepository.findById(accountNumber).get();
         if(account.getAccount_no().equals(accountNumber)) {
-            float accountBalance= accountRepository.getBalanceOfUser(userId,accountNumber);
+            float accountBalance= accountRepository.getBalanceOfUser(userName,accountNumber);
             return accountBalance;
         }
         else

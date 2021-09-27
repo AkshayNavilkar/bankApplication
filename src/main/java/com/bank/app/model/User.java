@@ -1,193 +1,193 @@
 package com.bank.app.model;
 
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 @Entity
 @Table(name = "user")
 public class User {
 
+    public static final String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*., ?]).+$";
+    public static final String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+    public static final String namePattern = "^[A-Za-z]\\w{2,20}$";
+    public static final String m_namePattern = "^[A-Za-z]\\w{0,20}$";
+    public static final String addrsPattern = "^[a-zA-Z0-9]\\{3,20}$";
+    public static final String mobileNoPattern = "^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[789]\\d{9}$";
+    public static final String uidPattern = "^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$";
+    public static final String datePattern = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$";
+    public static final String panPattern = "[A-Z]{5}[0-9]{4}[A-Z]{1}";
+    public static final String otpPattern = "^[0-9]{5}$";
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Integer user_id;
-
-    @Column(name = "f_name")
-    private String f_name;
-
-    @Column(name = "m_name")
-    private String m_name;
-
-    @Column(name = "l_name")
-    private String l_name;
-
     @Column(name = "user_name")
-    private String user_name;
+    private String userName;
 
-    @Column(name = "user_pan")
-    private String user_pan;
-
-    @Column(name = "user_uid")
-    private String user_uid;
-
-    @Column(name = "date_of_birth")
-    private String date_of_birth;
-
+    @NotEmpty
+    @Pattern(regexp = passwordPattern, message = "Invalid password, must contain minimum  1 uppercase, 1 lower case & a symbol")
     @Column(name = "password")
     private String password;
 
+    @NotEmpty
+    @Pattern(regexp = namePattern, message = "First name is min 3 & max 20 characters, alphabetic")
+    @Column(name = "f_name")
+    private String firstName;
+
+    @NotEmpty
+    @Pattern(regexp = m_namePattern, message = "Middle name min 1 & max 20 characters, alphabetic")
+    @Column(name = "m_name")
+    private String middleName;
+
+    @NotEmpty
+    @Pattern(regexp = namePattern, message = "Last name min 3 & max 20 characters, alphabetic")
+    @Column(name = "l_name")
+    private String lastName;
+
+    @NotEmpty
+    @Pattern(regexp = emailPattern, message = "Invalid email")
     @Column(name = "user_email")
-    private String user_email;
+    private String userEmail;
+
+    @NotEmpty
+    @Pattern(regexp = panPattern, message = "Inavalid PAN")
+    @Column(name = "user_pan")
+    private String userPan;
+
+    @NotEmpty
+    @Pattern(regexp = datePattern, message = " Date of Birth must be in the format YYYY-MM-DD")
+    @Column(name = "date_of_birth")
+    private String dateOfBirth;
+
+    @NotEmpty
+    @Pattern(regexp = namePattern, message = "Invalid address")
+    @Column(name = "address")
+    private String address;
+
+    @NotEmpty
+    @Pattern(regexp = mobileNoPattern, message = "Invalid mobile number Plz Enter Valid Mobile Number( 10/12 digit)")
+    @Column(name = "mobileno")
+    private String mobileNo;
+
+    @NotEmpty
+    @Pattern(regexp = uidPattern, message = "Invalid Aadhar Number")
+    @Column(name = "user_uid")
+    private String userUid;
 
     @Column(name = "isactive")
-    private Boolean isactive;
-    
+    private Boolean isActive;
+
     @Column(name = "otp")
-    private Integer otp;
+    @Pattern(regexp = otpPattern, message = "Invalid Opt It contains only numbers !!!")
+    private String otp;
 
-    public Integer getOtp() {
-		return otp;
-	}
-    @Column(name="mobileno")
-    @javax.validation.constraints.Pattern(regexp = "[7-9][0-9]{9}")
-    @NotNull
-    private String mobileno;
-
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getMobileno() {
-        return mobileno;
-    }
-
-    public void setMobileno(String mobileno) {
-        this.mobileno = mobileno;
-    }
-
-    public void setOtp(Integer otp) {
-		this.otp = otp;
-	}
-
-	public Boolean getIsactive() {
-        return isactive;
-    }
-
-    public void setIsactive(Boolean isactive) {
-        this.isactive = isactive;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) throws Exception {
-    	Pattern p = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*., ?]).+$");
-    	Matcher m = p.matcher(password);
-    	if (m.matches())
-    		this.password = password;
-    	else
-    		throw new Exception("Invalid Password !!!");
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUser_email() {
-        return user_email;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUser_email(String user_email) throws Exception{
-    	if(EmailValidator.getInstance().isValid(user_email))
-            this.user_email = user_email;
-        else
-            throw new Exception("Enter valid Email ID");
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getF_name() {
-    	
-        return f_name;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setF_name(String f_name){
-
-        Pattern pattern=Pattern.compile("^[A-Za-z]\\w{5,29}$");
-        Matcher matcher = pattern.matcher(f_name);
-        if(matcher.matches())
-            this.f_name = f_name;
-        else
-            System.out.println("Invalid fname");
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public String getM_name() {
-        return m_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setM_name(String m_name) throws  Exception{
-    	if(StringUtils.isAlpha(m_name))
-            this.m_name = m_name;
-        else
-            throw new Exception("Invalid Middle name must contain only alphabets.");
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getL_name() {
-        return l_name;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setL_name(String l_name) throws Exception {
-    	if(StringUtils.isAlpha(l_name))
-            this.l_name = l_name;
-        else
-            throw new Exception("Invalid Last name must contain only alphabets.");
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserPan() {
+        return userPan;
     }
 
-    public String getUser_pan() {
-        return user_pan;
+    public void setUserPan(String userPan) {
+        this.userPan = userPan;
     }
 
-    public void setUser_pan(String user_pan) {
-        this.user_pan = user_pan;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public String getUser_uid() {
-        return user_uid;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public void setUser_uid(String user_uid)throws Exception {
-    	Pattern pattern=Pattern.compile("^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$");
-    	Matcher matcher = pattern.matcher(user_uid);
-    	if(matcher.matches())
-    		this.user_uid = user_uid;
-    	else throw new Exception(" Enter Valid User adhar Number ");
+    public String getAddress() {
+        return address;
     }
 
-    public String getDate_of_birth() {
-        return date_of_birth;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void setDate_of_birth(String date_of_birth) throws Exception {
-    	Pattern pattern=Pattern.compile("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$");
-    	Matcher matcher = pattern.matcher(date_of_birth);
-    	if(matcher.matches())
-    	    this.date_of_birth = date_of_birth;
-    	else throw new Exception(" Enter Valid DOB ");
+    public String getMobileNo() {
+        return mobileNo;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public String getUserUid() {
+        return userUid;
     }
 
-    public void setUser_name(String f_name, String l_name) {
-        this.user_name = f_name+l_name;
+    public void setUserUid(String userUid) {
+        this.userUid = userUid;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
     }
 }

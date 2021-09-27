@@ -22,11 +22,11 @@ public class AccountNotFoundException extends RuntimeException {
         }
 
         public String getMessage() {
-            return super.getMessage() + " for the accountNumber " + accountNo;
+            return super.getMessage() + "for the accountNumber" + accountNo;
         }
 
         public String getLocalizedMessage() {
-            return "Account : " + accountNo + " doesn't exist";
+            return "Account : " + accountNo + "doesn't exist";
         }
 
 }

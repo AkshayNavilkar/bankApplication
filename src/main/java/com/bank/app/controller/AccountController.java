@@ -36,9 +36,9 @@ public class AccountController {
         return new ResponseEntity<>(account,HttpStatus.OK);
     }
 
-    @GetMapping("account/userId/{id}")
-    public ResponseEntity<Account> getAccountByUserId(@PathVariable Integer id) {
-        Account accounts = accountService.getByUserId(id);
+    @GetMapping("account/userName/{username}")
+    public ResponseEntity<Account> getAccountByUserId(@PathVariable String username) {
+        Account accounts = accountService.getByUserName(username);
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
@@ -47,9 +47,9 @@ public class AccountController {
         return new ResponseEntity<>(accountService.getAllAccount(), HttpStatus.OK);
     }
 
-    @GetMapping("account/balance/{userId}/{accountNo}")
-    public float getBalanceOfUser(@PathVariable Integer userId, @PathVariable Integer accountNo) {
-        float balanceOfUser = accountService.getBalanceOfUser(userId, accountNo);
+    @GetMapping("account/balance/{userName}/{accountNo}")
+    public float getBalanceOfUser(@PathVariable String userName, @PathVariable Integer accountNo) {
+        float balanceOfUser = accountService.getBalanceOfUser(userName, accountNo);
         return balanceOfUser;
     }
 
