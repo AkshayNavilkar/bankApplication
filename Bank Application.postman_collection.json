@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "fa7e554b-0856-4ee1-bd1b-d18a746995b5",
+		"name": "Bank Application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"s\",\r\n    \"middleName\": \"S\",\r\n    \"lastName\": \"Viveki\",\r\n    \"userPan\": \"ABCDE1234F\",\r\n    \"userUid\": \"8665 5331 0291\",\r\n    \"dateOfBirth\": \"1996-09-20\",\r\n    \"password\": \"D@!asa1\",\r\n    \"userEmail\": \"dayanandviveki@Gmail.com\",\r\n    \"address\": \"Ahmednagar\",\r\n    \"mobileNo\": \"7798408988\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/saveuser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"saveuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Detailes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"firstName\": \"Dayadsd2121s\",\r\n    \"middleName\": \"wwwc\",\r\n    \"lastName\": \"Viveki\"\r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/updateUser/DayaqViveki",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"updateUser",
+								"DayaqViveki"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email OPT Validation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/user/otp/81446/dayaViveki7952",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"otp",
+								"81446",
+								"dayaViveki7952"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend Otp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/userlogin/dayaViveki7952/D@!asa1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"userlogin",
+								"dayaViveki7952",
+								"D@!asa1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get All User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/getallUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getallUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all active User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/getallactiveusers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getallactiveusers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Inactive Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Details By UserName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/getuserbyusername/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getuserbyusername",
+								"100"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Get All Account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/getAllAccount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getAllAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account Details By Account Number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

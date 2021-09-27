@@ -20,13 +20,23 @@ public class UserControlller {
     private IUserService userService;
 
     @PostMapping("/saveuser")
-    public @ResponseBody User createUser(@Valid @RequestBody User user) {
-    	return userService.createUser(user);
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+    	return new ResponseEntity<User>(userService.createUser(user),HttpStatus.OK);
     }
-    
-    @PutMapping("/user/otp/{otp}/{user_name}")
-    public ResponseEntity<User> validateUser(@PathVariable("otp") Integer otp,@PathVariable("user_name") String user_name){
-    	return new ResponseEntity<User>(userService.validateUserByEmail(otp, user_name),HttpStatus.OK);
+
+    @PutMapping("/updateUser/{username}")
+    public ResponseEntity<User> updateUser(@PathVariable("username") String userName,@RequestBody User user){
+        return new ResponseEntity<User>(userService.updateUser(userName, user),HttpStatus.OK);
+    }
+
+    @PutMapping("/resentOtp/{username}")
+    public ResponseEntity<User> resendOtp(@PathVariable("username") String userName){
+        return new ResponseEntity<User>(userService.resendOtp(userName),HttpStatus.OK);
+    }
+
+    @PutMapping("/user/otp/{otp}/{username}")
+    public ResponseEntity<User> validateUser(@PathVariable("otp") String otp,@PathVariable("username") String userName){
+    	return new ResponseEntity<User>(userService.validateUserByEmail(otp, userName),HttpStatus.OK);
     }
     
     @GetMapping("/getallUsers")
@@ -39,9 +49,18 @@ public class UserControlller {
     	return new ResponseEntity<List<User>>(userService.getAllActiveUser(),HttpStatus.OK);
     }
 
-    @PostMapping("/userlogin/{user_name}/{password}")
-    public @ResponseBody
-    Account userlogin(@PathVariable String user_name, @PathVariable String password) throws JsonProcessingException {
-        return userService.validatelogin(user_name, password);
+    @GetMapping("/getallinactiveusers")
+    public ResponseEntity<List<User>> getAllInActiveUsers(){
+    	return new ResponseEntity<List<User>>(userService.getAllInActiveUser(),HttpStatus.OK);
+    }
+
+    @GetMapping("/getuserbyusername/{username}")
+    public ResponseEntity<User> getUserByUsername(@PathVariable("username") String userName){
+        return  new ResponseEntity<User>(userService.getUserByUsername(userName),HttpStatus.OK);
+    }
+
+    @GetMapping("/userlogin/{username}/{password}")
+    public ResponseEntity<Account> userLogin(@PathVariable("username") String userName, @PathVariable("password") String password) {
+        return new ResponseEntity<Account>(userService.validateLogin(userName, password),HttpStatus.OK);
     }
 }
