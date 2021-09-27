@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"s\",\r\n    \"middleName\": \"S\",\r\n    \"lastName\": \"Viveki\",\r\n    \"userPan\": \"ABCDE1234F\",\r\n    \"userUid\": \"8665 5331 0291\",\r\n    \"dateOfBirth\": \"1996-09-20\",\r\n    \"password\": \"D@!asa1\",\r\n    \"userEmail\": \"dayanandviveki@Gmail.com\",\r\n    \"address\": \"Ahmednagar\",\r\n    \"mobileNo\": \"7798408988\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"sha\",\r\n    \"middleName\": \"Sha\",\r\n    \"lastName\": \"Viveki\",\r\n    \"userPan\": \"ABCDE1234F\",\r\n    \"userUid\": \"8665 5331 0291\",\r\n    \"dateOfBirth\": \"1996-09-20\",\r\n    \"password\": \"D@!asa1\",\r\n    \"userEmail\": \"dayanandviveki@Gmail.com\",\r\n    \"address\": \"Ahmednagar\",\r\n    \"mobileNo\": \"7798408988\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -52,7 +52,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/updateUser/DayaqViveki",
+							"raw": "http://localhost:8080/api/updateUser/<user_name>",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -61,7 +61,7 @@
 							"path": [
 								"api",
 								"updateUser",
-								"DayaqViveki"
+								"<user_name>"
 							]
 						}
 					},
@@ -73,7 +73,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/user/otp/81446/dayaViveki7952",
+							"raw": "http://localhost:8080/api/user/otp/<otp>/<user_name>",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -83,8 +83,8 @@
 								"api",
 								"user",
 								"otp",
-								"81446",
-								"dayaViveki7952"
+								"<otp>",
+								"<user_name>"
 							]
 						}
 					},
@@ -93,10 +93,10 @@
 				{
 					"name": "Resend OTP",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/resentOtp/dayaViveki7952",
+							"raw": "http://localhost:8080/api/resendOtp/<user_name>",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -104,8 +104,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"resentOtp",
-								"dayaViveki7952"
+								"resendOtp",
+								"<user_name>"
 							]
 						}
 					},
@@ -117,7 +117,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/userlogin/dayaViveki7952/D@!asa1",
+							"raw": "http://localhost:8080/api/userlogin/<user_name>/<password>",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -126,8 +126,8 @@
 							"path": [
 								"api",
 								"userlogin",
-								"dayaViveki7952",
-								"D@!asa1"
+								"<user_name>",
+								"<password>"
 							]
 						}
 					},
@@ -199,7 +199,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/getuserbyusername/100",
+							"raw": "http://localhost:8080/api/getuserbyusername/<user_name>",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -208,7 +208,7 @@
 							"path": [
 								"api",
 								"getuserbyusername",
-								"100"
+								"<user_name>"
 							]
 						}
 					},
@@ -245,7 +245,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9090/api/getAccount/<accountno>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"getAccount",
+								"<accountno>"
+							]
 						}
 					},
 					"response": []
