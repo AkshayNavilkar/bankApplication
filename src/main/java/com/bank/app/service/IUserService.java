@@ -12,5 +12,5 @@ public interface IUserService {
     User validateUserByEmail(Integer otp, Integer user_Id);
     List<User> getAllUser();
     List<User> getAllActiveUser();
-//    Account validatelogin(Integer user_id, String password) throws JsonProcessingException;
+    Account validatelogin(Integer user_id, String password) throws JsonProcessingException;
 }

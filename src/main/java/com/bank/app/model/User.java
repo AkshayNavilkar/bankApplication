@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,8 +53,24 @@ public class User {
     public Integer getOtp() {
 		return otp;
 	}
+    @Column(name="mobileno")
+    @javax.validation.constraints.Pattern(regexp = "[7-9][0-9]{9}")
+    @NotNull
+    private String mobileno;
 
-	public void setOtp(Integer otp) {
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public String getMobileno() {
+        return mobileno;
+    }
+
+    public void setMobileno(String mobileno) {
+        this.mobileno = mobileno;
+    }
+
+    public void setOtp(Integer otp) {
 		this.otp = otp;
 	}
 

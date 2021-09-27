@@ -2,7 +2,6 @@ package com.bank.app.impl;
 
 import com.bank.app.model.Account;
 import com.bank.app.model.User;
-import com.bank.app.repository.AccountRepository;
 import com.bank.app.repository.UserRepository;
 import com.bank.app.service.IUserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -89,14 +88,14 @@ public class UserServiceImpl implements IUserService {
 		return userRepository.getAllActiveUser();
 	}
 
-//    @Override
-//    public Account validatelogin(Integer user_id, String password) throws JsonProcessingException {
-//        User found_user = userRepository.getById(user_id);
-//        Account found_account = accountRepository.getAccountDetailsAfterLogin(user_id);
-//        Account result = null;
-//        if(found_user.getUser_id() == user_id && found_user.getPassword().equals(password))
-//            result = found_account;
-//        return result;
-//    }
+    @Override
+    public Account validatelogin(Integer user_id, String password) throws JsonProcessingException {
+        User found_user = userRepository.getById(user_id);
+        Account found_account = accountRepository.getAccountDetailsAfterLogin(user_id);
+        Account result = null;
+        if(found_user.getUser_id() == user_id && found_user.getPassword().equals(password))
+            result = found_account;
+        return result;
+    }
 
 }

@@ -1,10 +1,7 @@
 package com.bank.app.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "account")
@@ -24,17 +21,15 @@ public class Account {
     private Integer user_id;
 
     @Column(name = "balance")
-    @Min(value = 1000)
-    @NotBlank(message = "Minimum balance should be 1000")
-    private float balance;
+    @DecimalMin(value = "1000",message = "")
+    private Float balance;
 
     @Column(name = "ifsc_code")
-    @Pattern(regexp = "^[A-Z]{4}0[A-Z0-9]{6}$")
-    @NotNull(message = "Please provide valid IFSC code")
+//    @Pattern(regexp = "^[A-Z]{4}0[A-Z0-9]{6}$")
     private String IFSC;
 
     public enum StatusEnum {
-        Savings, Current
+        savings, current
     }
 
     @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
