@@ -30,7 +30,7 @@ public class AccountController {
         return new ResponseEntity<List<Account>>(accountService.getAllAccounts(), HttpStatus.OK);
     }
 
-    @GetMapping("/getAllAccount/{accountno}")
+    @GetMapping("/getAccount/{accountno}")
     public ResponseEntity<Account> getAccountByAccNo(@PathVariable("accountno") Integer accountNo) {
         return new ResponseEntity<Account>(accountService.getAccountByAccNo(accountNo), HttpStatus.OK);
     }

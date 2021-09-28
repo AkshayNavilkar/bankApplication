@@ -29,7 +29,7 @@ public class UserControlller {
         return new ResponseEntity<User>(userService.updateUser(userName, user),HttpStatus.OK);
     }
 
-    @PutMapping("/resentOtp/{username}")
+    @PutMapping("/resendOtp/{username}")
     public ResponseEntity<User> resendOtp(@PathVariable("username") String userName){
         return new ResponseEntity<User>(userService.resendOtp(userName),HttpStatus.OK);
     }
