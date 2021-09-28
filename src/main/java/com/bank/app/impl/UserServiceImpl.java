@@ -68,6 +68,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User createUser(User user){
     	User newUser = null;
+
         try{
             sendOtp(user);
             String usernName = user.getFirstName()+user.getLastName()+new Random().nextInt(9999);
@@ -140,43 +141,46 @@ public class UserServiceImpl implements IUserService {
         User user = null;
         String msg = null;
         try {
-            msg = "Invalid Username !!! ";
-            user = userRepository.getByUserName(userName);
+            msg = "Invalid Username plz Enter Valid Username!!!";
+            user = userRepository.findById(userName).get();
 
+            msg = "Otp Validation Already Done By User ...";
+            user = userRepository.getOptValidation(userName).get();
 
-            if(user.getIsActive())
-                return user;
-            else if(user.getOtp().equals(otp)) {
-                user.setIsActive(true);
-                user.setOtp(null);
-                return userRepository.save(user);
-            }
+            msg = "Invalid OTP !!!";
+            user = userRepository.validationOtp(userName, otp).get();
+
+            user.setOtp(null);
+            user.setIsActive(true);
+
+            user = userRepository.save(user);
+
         }catch(NullPointerException npe) {
             throw new ValidationFailedException("Invalid Username !!!");
+        }catch(NoSuchElementException nsee) {
+            throw new ValidationFailedException(msg);
         }catch(Exception e) {
             e.printStackTrace();
-            throw new ValidationFailedException("Invalid Opt !!!");
+            throw new ValidationFailedException(msg);
         }
-        return  null;
+        return user;
 	}
 
     @Override
     public User resendOtp(String userName)  {
-        User userNew = null ;
+        User user= null ;
         String msg = null;
         try{
             msg = "Invalid Username !!!";
-            User user = userRepository.findById(userName).get();
+            user = userRepository.findById(userName).get();
 
             msg = "Otp Validation Already done By User ...";
-            if( !user.getIsActive()) {
-                sendOtp(user);
-                user.setIsActive(false);
-                user.setOtp(String.valueOf(otp));
-                userNew = userRepository.save(user);
-            }
-            else
-                userNew = user;
+            user = userRepository.getOptValidation(userName).get();
+
+            sendOtp(user);
+            user.setOtp(String.valueOf(otp));
+            user =  userRepository.save(user);
+
         }catch(NullPointerException npe){
             throw new ValidationFailedException("Invalid User Details !!!");
         }catch(NoSuchElementException nsee){
@@ -184,7 +188,7 @@ public class UserServiceImpl implements IUserService {
         }catch(Exception e){
             e.printStackTrace();
         }
-        return userNew;
+        return user;
     }
 
     @Override
@@ -228,21 +232,19 @@ public class UserServiceImpl implements IUserService {
             validatedUser = userRepository.findById(userName).get();
 
             msg = "Invalid Password !!!";
-            if(validatedUser.getPassword().equals(password)) {
+            validatedUser = userRepository.getByUserNameAndPassword(userName,password).get();
 
-                msg = "OTP valification Not done by user!!!";
-                if(validatedUser.getIsActive()) {
-                    msg = "Acount not Found !!! User need to Create Accout";
-                    findAccount = accountRepository.getAccountDetailsAfterLogin(userName);
-                }else
-                    throw new ValidationFailedException(msg);
-            }
-            else
-                throw new ValidationFailedException(msg);
+            msg ="Otp Validation not done By User";
+            validatedUser = userRepository.isActive(userName, password).get();
+
+            msg = "Account Not Created by User ...";
+            findAccount = accountRepository.getAccountDetailsAfterLogin(userName).get();
 
         }catch(NullPointerException npe){
             throw new ValidationFailedException("Invalid User Details !!!");
         }catch(NoSuchElementException nsee){
+            throw new ValidationFailedException(msg);
+        }catch(Exception e){
             throw new ValidationFailedException(msg);
         }
         return findAccount;
