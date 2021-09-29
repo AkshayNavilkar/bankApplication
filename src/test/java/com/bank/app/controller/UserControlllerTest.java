@@ -67,6 +67,153 @@ public class UserControlllerTest {
         String outputToJson = response.getContentAsString();
         User inputJson = new ObjectMapper().readValue(inputToJson, User.class);
         User outputJson = new ObjectMapper().readValue(outputToJson, User.class);
+        assertNotSame(outputJson.getUserName(), inputJson.getUserName());
+        assertNotSame(outputJson.getPassword(), inputJson.getPassword());
+        if (!EmailValidator.getInstance().isValid(inputJson.getUserEmail()))
+            throw new Exception("Invalid Email");
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+    }
+
+    @Test
+    public void test_getAllUser() throws Exception {
+        User user = new User();
+        user.setUserName("sripada");
+        user.setFirstName("sri");
+        user.setMiddleName("i");
+        user.setLastName("pada");
+        user.setUserEmail("sripada@gmail.com");
+        user.setAddress("warangal");
+        user.setUserUid("4163 8161 4672");
+        user.setUserPan("BCLPN8608M");
+        user.setDateOfBirth("1995-05-01");
+        user.setMobileNo("9886676258");
+        user.setPassword("Am123@");
+        user.setOtp(null);
+        user.setIsActive(true);
+        System.out.println(user);
+        String inputToJson = this.mapToJson(user);
+        Mockito.when(userService.createUser(Mockito.any(User.class))).thenReturn(user);
+        String url = "http://localhost:8080/api/saveuser";
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post(url).accept(MediaType.APPLICATION_JSON).content(inputToJson)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = mvcResult.getResponse();
+        String outputToJson = response.getContentAsString();
+        User inputJson = new ObjectMapper().readValue(inputToJson, User.class);
+        User outputJson = new ObjectMapper().readValue(outputToJson, User.class);
+        assertNotSame(outputJson.getUserName(), inputJson.getUserName());
+        assertNotSame(outputJson.getPassword(), inputJson.getPassword());
+        if (!EmailValidator.getInstance().isValid(inputJson.getUserEmail()))
+            throw new Exception("Invalid Email");
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+    }
+
+    private String mapToJson(Object object) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(object);
+    }
+    @Test
+    public void test_getAllActiveUsers() throws Exception {
+        User user = new User();
+        user.setUserName("sripada");
+        user.setFirstName("sri");
+        user.setMiddleName("i");
+        user.setLastName("pada");
+        user.setUserEmail("sripada@gmail.com");
+        user.setAddress("warangal");
+        user.setUserUid("4163 8161 4672");
+        user.setUserPan("BCLPN8608M");
+        user.setDateOfBirth("1995-05-01");
+        user.setMobileNo("9886676258");
+        user.setPassword("Am123@");
+        user.setOtp(null);
+        user.setIsActive(true);
+        System.out.println(user);
+        String inputToJson = this.mapToJson(user);
+        Mockito.when(userService.createUser(Mockito.any(User.class))).thenReturn(user);
+        String url = "http://localhost:8080/api/saveuser";
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post(url).accept(MediaType.APPLICATION_JSON).content(inputToJson)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = mvcResult.getResponse();
+        String outputToJson = response.getContentAsString();
+        User inputJson = new ObjectMapper().readValue(inputToJson, User.class);
+        User outputJson = new ObjectMapper().readValue(outputToJson, User.class);
+        assertNotSame(outputJson.getUserName(),inputJson.getUserName());
+        assertNotSame(outputJson.getPassword(), inputJson.getPassword());
+        if(!EmailValidator.getInstance().isValid(inputJson.getUserEmail()))
+            throw new Exception("Invalid Email");
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+    }
+    @Test
+    public void test_getAllInActiveUsers() throws Exception {
+        User user = new User();
+        user.setUserName("sripada");
+        user.setFirstName("sri");
+        user.setMiddleName("i");
+        user.setLastName("pada");
+        user.setUserEmail("sripada@gmail.com");
+        user.setAddress("warangal");
+        user.setUserUid("4163 8161 4672");
+        user.setUserPan("BCLPN8608M");
+        user.setDateOfBirth("1995-05-01");
+        user.setMobileNo("9886676258");
+        user.setPassword("Am123@");
+        user.setOtp(null);
+        user.setIsActive(true);
+        System.out.println(user);
+        String inputToJson = this.mapToJson(user);
+        Mockito.when(userService.createUser(Mockito.any(User.class))).thenReturn(user);
+        String url = "http://localhost:8080/api/saveuser";
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post(url).accept(MediaType.APPLICATION_JSON).content(inputToJson)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = mvcResult.getResponse();
+        String outputToJson = response.getContentAsString();
+        User inputJson = new ObjectMapper().readValue(inputToJson, User.class);
+        User outputJson = new ObjectMapper().readValue(outputToJson, User.class);
+        assertNotSame(outputJson.getUserName(),inputJson.getUserName());
+        assertNotSame(outputJson.getPassword(), inputJson.getPassword());
+        if(!EmailValidator.getInstance().isValid(inputJson.getUserEmail()))
+            throw new Exception("Invalid Email");
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+    }
+    @Test
+    public void test_getUserByUserName() throws Exception {
+        User user = new User();
+        user.setUserName("sripada");
+        user.setFirstName("sri");
+        user.setMiddleName("i");
+        user.setLastName("pada");
+        user.setUserEmail("sripada@gmail.com");
+        user.setAddress("warangal");
+        user.setUserUid("4163 8161 4672");
+        user.setUserPan("BCLPN8608M");
+        user.setDateOfBirth("1995-05-01");
+        user.setMobileNo("9886676258");
+        user.setPassword("Am123@");
+        user.setOtp(null);
+        user.setIsActive(true);
+        System.out.println(user);
+        String inputToJson = this.mapToJson(user);
+        Mockito.when(userService.createUser(Mockito.any(User.class))).thenReturn(user);
+        String url = "http://localhost:8080/api/saveuser";
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post(url).accept(MediaType.APPLICATION_JSON).content(inputToJson)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = mvcResult.getResponse();
+        String outputToJson = response.getContentAsString();
+        User inputJson = new ObjectMapper().readValue(inputToJson, User.class);
+        User outputJson = new ObjectMapper().readValue(outputToJson, User.class);
         assertNotSame(outputJson.getUserName(),inputJson.getUserName());
         assertNotSame(outputJson.getPassword(), inputJson.getPassword());
         if(!EmailValidator.getInstance().isValid(inputJson.getUserEmail()))
@@ -74,11 +221,8 @@ public class UserControlllerTest {
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
-    private String mapToJson(Object object) throws JsonProcessingException
-    {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(object);
-    }
+
 
 
 }
+
