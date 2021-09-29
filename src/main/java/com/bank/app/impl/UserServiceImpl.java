@@ -1,7 +1,7 @@
 package com.bank.app.impl;
 
-import com.bank.app.exception.SendingFailedException;
-import com.bank.app.exception.ValidationFailedException;
+import com.bank.app.exceptions.SendingFailedException;
+import com.bank.app.exceptions.ValidationFailedException;
 import com.bank.app.model.Account;
 import com.bank.app.model.User;
 import com.bank.app.repository.AccountRepository;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     UserRepository userRepository;
-    
+
     @Autowired
     AccountRepository accountRepository;
 
@@ -67,7 +67,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User createUser(User user){
-    	User newUser = null;
+        User newUser = null;
 
         try{
             sendOtp(user);
@@ -136,7 +136,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-	public User validateUserByEmail(String otp, String userName) {
+    public User validateUserByEmail(String otp, String userName) {
 
         User user = null;
         String msg = null;
@@ -164,7 +164,7 @@ public class UserServiceImpl implements IUserService {
             throw new ValidationFailedException(msg);
         }
         return user;
-	}
+    }
 
     @Override
     public User resendOtp(String userName)  {
@@ -192,19 +192,19 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-	public List<User> getAllUser() {
-		return userRepository.findAll();
-	}
-	
-	@Override
-	public List<User> getAllActiveUser() {
-		return userRepository.getAllActiveUser();
-	}
+    public List<User> getAllUser() {
+        return userRepository.findAll();
+    }
 
     @Override
-	public List<User> getAllInActiveUser() {
-		return userRepository.getAllInActiveUser();
-	}
+    public List<User> getAllActiveUser() {
+        return userRepository.getAllActiveUser();
+    }
+
+    @Override
+    public List<User> getAllInActiveUser() {
+        return userRepository.getAllInActiveUser();
+    }
 
     @Override
     public User getUserByUsername(String userName) {

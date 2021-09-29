@@ -21,7 +21,7 @@ public class UserControlller {
 
     @PostMapping("/saveuser")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-    	return new ResponseEntity<User>(userService.createUser(user),HttpStatus.OK);
+        return new ResponseEntity<User>(userService.createUser(user),HttpStatus.OK);
     }
 
     @PutMapping("/updateUser/{username}")
@@ -36,22 +36,22 @@ public class UserControlller {
 
     @PutMapping("/user/otp/{otp}/{username}")
     public ResponseEntity<User> validateUser(@PathVariable("otp") String otp,@PathVariable("username") String userName){
-    	return new ResponseEntity<User>(userService.validateUserByEmail(otp, userName),HttpStatus.OK);
+        return new ResponseEntity<User>(userService.validateUserByEmail(otp, userName),HttpStatus.OK);
     }
-    
+
     @GetMapping("/getallUsers")
     public ResponseEntity<List<User>> getAllUsers(){
-    	return new ResponseEntity<List<User>>(userService.getAllUser(),HttpStatus.OK);
+        return new ResponseEntity<List<User>>(userService.getAllUser(),HttpStatus.OK);
     }
-    
+
     @GetMapping("/getallactiveusers")
     public ResponseEntity<List<User>> getAllActiveUsers(){
-    	return new ResponseEntity<List<User>>(userService.getAllActiveUser(),HttpStatus.OK);
+        return new ResponseEntity<List<User>>(userService.getAllActiveUser(),HttpStatus.OK);
     }
 
     @GetMapping("/getallinactiveusers")
     public ResponseEntity<List<User>> getAllInActiveUsers(){
-    	return new ResponseEntity<List<User>>(userService.getAllInActiveUser(),HttpStatus.OK);
+        return new ResponseEntity<List<User>>(userService.getAllInActiveUser(),HttpStatus.OK);
     }
 
     @GetMapping("/getuserbyusername/{username}")

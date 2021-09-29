@@ -6,8 +6,11 @@ import java.util.List;
 
 public interface IAccountService {
 
-    public Account createAccount(Account account);
-    public List<Account> getAllAccounts();
-    public Account getAccountByAccNo(Integer accno);
+    Account createAccount(Account account);
+    Account getByAccountNumber(Integer accountNumber);
+    Account getByUserName(String userName);
+    Account depositBalance(Integer accountNo, Float balance);
+    List<Account> getAllAccount();
+    Float getBalanceOfUser(String userName,Integer accountNumber);
 
 }

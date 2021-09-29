@@ -6,7 +6,7 @@ import com.bank.app.model.User;
 import java.util.List;
 
 public interface IUserService {
-	
+
     public User createUser(User user);
     public User updateUser(String userName, User user);
     public User validateUserByEmail(String otp, String userName);
