@@ -1,6 +1,6 @@
 package com.bank.app.impl;
 
-import com.bank.app.exceptions.AccountNotFoundException;
+import com.bank.app.exception.AccountNotFoundException;
 import com.bank.app.model.Account;
 import com.bank.app.repository.AccountRepository;
 import com.bank.app.service.IAccountService;

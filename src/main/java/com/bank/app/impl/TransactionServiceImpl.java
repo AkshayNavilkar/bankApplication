@@ -1,7 +1,7 @@
 package com.bank.app.impl;
 
-import com.bank.app.exceptions.AccountNotFoundException;
-import com.bank.app.exceptions.InsufficientBalanceException;
+import com.bank.app.exception.AccountNotFoundException;
+import com.bank.app.exception.InsufficientBalanceException;
 import com.bank.app.model.Account;
 import com.bank.app.model.Transaction;
 import com.bank.app.repository.AccountRepository;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.rmi.ServerException;
 import java.util.List;
 
 
