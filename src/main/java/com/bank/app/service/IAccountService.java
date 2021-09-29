@@ -11,6 +11,6 @@ public interface IAccountService {
     Account getByUserName(String userName);
     Account depositBalance(Integer accountNo, Float balance);
     List<Account> getAllAccount();
-    float getBalanceOfUser(String userName,Integer accountNumber);
+    Float getBalanceOfUser(String userName,Integer accountNumber);
 
 }

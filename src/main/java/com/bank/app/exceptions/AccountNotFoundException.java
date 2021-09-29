@@ -1,32 +1,15 @@
 package com.bank.app.exceptions;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class AccountNotFoundException extends RuntimeException {
-        private Integer accountNo;
 
-        public AccountNotFoundException() {
-            super();
+        public AccountNotFoundException(String message) {
+            super(message);
         }
 
-        public AccountNotFoundException(String msg, Integer accountNo) {
-            super(msg);
-            this.accountNo = accountNo;
-        }
 
-        public AccountNotFoundException(String msg, Integer accountNo, Throwable cause) {
-            super(msg, cause);
-            this.accountNo = accountNo;
-        }
-
-        public String toString() {
-            return super.toString();
-        }
-
-        public String getMessage() {
-            return super.getMessage() + "for the accountNumber" + accountNo;
-        }
-
-        public String getLocalizedMessage() {
-            return "Account : " + accountNo + "doesn't exist";
-        }
 
 }

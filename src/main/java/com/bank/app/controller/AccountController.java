@@ -48,9 +48,9 @@ public class AccountController {
     }
 
     @GetMapping("account/balance/{userName}/{accountNo}")
-    public float getBalanceOfUser(@PathVariable String userName, @PathVariable Integer accountNo) {
-        float balanceOfUser = accountService.getBalanceOfUser(userName, accountNo);
-        return balanceOfUser;
+    public String getBalanceOfUser(@PathVariable String userName, @PathVariable Integer accountNo) {
+        Float balanceOfUser = accountService.getBalanceOfUser(userName, accountNo);
+        return "Your Available balance is: " + balanceOfUser;
     }
 
 }

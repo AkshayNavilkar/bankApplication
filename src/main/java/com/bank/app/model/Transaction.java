@@ -1,8 +1,6 @@
 package com.bank.app.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Entity
@@ -14,26 +12,24 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer transaction_id;
 
+    private enum StatusEnum {
+        debit, credit
+    }
+
     @Column(name = "transaction_type")
-    @NotNull
-    private Boolean transaction_type;
+    @Enumerated(EnumType.STRING)
+    private StatusEnum transaction_type;
 
     @Column(name = "account_no")
-    @Pattern(regexp = "[0-9]{9,18}")
-    @NotBlank(message = "Please provide Account Number")
     private Integer account_no;
 
     @Column(name = "transaction_amount")
-    @NotBlank(message = "Minimum transaction amount should be 1")
     private Float transactionAmount;
 
     @Column(name = "beneficiary_accno")
-    @Pattern(regexp = "[0-9]{9,18}")
-    @NotBlank(message = "Please provide Beneficiary Account Number")
     private Integer beneficiaryAccount_no;
 
     @Column(name = "closing_balance")
-    @NotBlank
     private Float closingBalance;
 
     public Float getClosingBalance() {
@@ -62,17 +58,19 @@ public class Transaction {
         this.account_no = account_no;
     }
 
-    public Boolean getTransaction_type() {
+
+    public StatusEnum getTransaction_type() {
         return transaction_type;
     }
-    public void setTransaction_type(Boolean transaction_type) {
+
+    public void setTransaction_type(StatusEnum transaction_type) {
         this.transaction_type = transaction_type;
     }
 
-    public float getTransactionAmount() {
+    public Float getTransactionAmount() {
         return transactionAmount;
     }
-    public void setTransactionAmount(float transactionAmount) {
+    public void setTransactionAmount(Float transactionAmount) {
         this.transactionAmount = transactionAmount;
     }
 

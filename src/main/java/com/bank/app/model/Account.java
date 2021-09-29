@@ -1,5 +1,7 @@
 package com.bank.app.model;
 
+import org.intellij.lang.annotations.Pattern;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -10,7 +12,6 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_no")
-    @Pattern(regexp = "[0-9]{9,18}")
     private Integer account_no;
 
     @Column(name = "account_type")
@@ -21,7 +22,6 @@ public class Account {
     private String user_name;
 
     @Column(name = "balance")
-    @DecimalMin(value = "1000",message = "")
     private Float balance;
 
     @Column(name = "ifsc_code")
@@ -32,7 +32,7 @@ public class Account {
     }
 
     @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_name", referencedColumnName = "user_name", insertable = false, updatable = false)
     private User user;
 
     public Integer getAccount_no() {
@@ -59,11 +59,11 @@ public class Account {
         this.user_name = user_name;
     }
 
-    public float getBalance() {
+    public Float getBalance() {
         return balance;
     }
 
-    public void setBalance(float balance) {
+    public void setBalance(Float balance) {
         this.balance = balance;
     }
 

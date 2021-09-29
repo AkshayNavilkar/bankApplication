@@ -1,6 +1,7 @@
 package com.bank.app.impl;
 
 import com.bank.app.exceptions.AccountNotFoundException;
+import com.bank.app.exceptions.InsufficientBalanceException;
 import com.bank.app.model.Account;
 import com.bank.app.model.Transaction;
 import com.bank.app.repository.AccountRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.rmi.ServerException;
+import java.util.List;
 
 
 @Service
@@ -22,15 +24,14 @@ public class TransactionServiceImpl implements ITransactionService {
     AccountRepository accountRepository;
 
 
-    public Transaction closingBalance(Integer accountNo) {
-        Transaction transaction = transactionRepository.getTransactionByAccountNo(accountNo);
+    public Transaction closingBalance(Integer accountNo,Integer id) {
+        Transaction transaction = transactionRepository.getTransactionByAccNoTransactionId(id,accountNo);
         transaction.setClosingBalance(accountRepository.findById(accountNo).get().getBalance());
         return transactionRepository.save(transaction);
     }
 
     @Override
     public Transaction addTransaction(Transaction transaction) {
-
         transaction.setTransaction_type(transaction.getTransaction_type());
         transaction.setTransactionAmount(transaction.getTransactionAmount());
         transaction.setAccount_no(transaction.getAccount_no());
@@ -39,19 +40,18 @@ public class TransactionServiceImpl implements ITransactionService {
         return transactionRepository.save(transaction);
     }
 
-
-    @Transactional
-    public void isStatus(Integer transactionId,Integer accountNo) throws ServerException {
+    public void isStatus(Integer transactionId,Integer accountNo)  {
         Transaction transaction=transactionRepository.findById(transactionId).get();
         Account account = accountRepository.findById(accountNo).get();
-        if(!transaction.getTransaction_type())
+        String x = transaction.getTransaction_type()+"";
+        if(x.equals("debit"))
             debit(transactionId, transaction.getAccount_no(),transaction.getBeneficiaryAccount_no());
-        else
+        if(x.equals("credit"))
             credit(transactionId,transaction.getAccount_no(),transaction.getBeneficiaryAccount_no());
     }
 
     @Override
-    public String debit(Integer transactionId , Integer accountNo,Integer beneficiaryAccNo ) throws ServerException {
+    public String debit(Integer transactionId , Integer accountNo,Integer beneficiaryAccNo )  {
         Transaction transaction=transactionRepository.findById(transactionId).get();
         Account account = accountRepository.findById(accountNo).get();
         Account account1 = accountRepository.findById(beneficiaryAccNo).get();
@@ -70,10 +70,10 @@ public class TransactionServiceImpl implements ITransactionService {
                 accountRepository.save(account1);
                 return transactionAmount + " Rs debited.";
             } else {
-                throw new ServerException("You don't have sufficient balance" + "Current balance is" + currentAmount);
+                throw new InsufficientBalanceException("You don't have sufficient balance" + "Current balance is" + currentAmount);
             }
         } else{
-            throw new AccountNotFoundException("Account doesn't exist",accountNo);
+            throw new AccountNotFoundException("Account doesn't exist"+ accountNo);
         }
 
     }
@@ -97,13 +97,13 @@ public class TransactionServiceImpl implements ITransactionService {
             accountRepository.save(account1);
             return transactionAmount + " Rs credited.";
         }else{
-            throw new AccountNotFoundException("Account doesn't exist",accountNo);
+            throw new AccountNotFoundException("Account doesn't exist"+ accountNo);
         }
 
     }
 
-        public Transaction getTransactionByAccountNo(Integer accountNo) {
-        return transactionRepository.getTransactionByAccountNo(accountNo);
+        public List<Transaction> getTransactionByAccountNo(Integer accountNo) {
+        return transactionRepository.getTransactionByAccNo(accountNo);
     }
 
 }

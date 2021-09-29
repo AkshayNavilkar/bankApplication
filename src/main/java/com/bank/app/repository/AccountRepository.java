@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer> {
@@ -15,6 +17,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     Float getBalanceOfUser(String userName,Integer accountNumber);
 
     @Query(value = "Select * from account a where a.user_name = ?", nativeQuery = true)
-    Account getAccountDetailsAfterLogin(String userName);
+    Optional<Account> getAccountDetailsAfterLogin(String userName);
 
 }

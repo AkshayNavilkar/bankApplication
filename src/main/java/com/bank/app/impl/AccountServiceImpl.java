@@ -16,12 +16,13 @@ public class AccountServiceImpl implements IAccountService {
     private AccountRepository accountRepository;
 
     @Override
-    public Account createAccount(Account account)
-    {
+    public Account createAccount(Account account) {
+
         account.setAccount_type(account.getAccount_type());
         account.setBalance(account.getBalance());
         account.setUser_name(account.getUser_name());
         account.setIFSC("BANK0005943");
+
         return accountRepository.save(account);
     }
 
@@ -39,7 +40,7 @@ public class AccountServiceImpl implements IAccountService {
             return accountRepository.findById(accountNumber).get();
         }
         else {
-            throw new AccountNotFoundException("Account doesn't exist",accountNumber);
+            throw new AccountNotFoundException("Account doesn't exist"+ accountNumber);
         }
     }
 
@@ -53,16 +54,14 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public float getBalanceOfUser(String userName, Integer accountNumber) {
+    public Float getBalanceOfUser(String userName, Integer accountNumber) {
         Account account = accountRepository.findById(accountNumber).get();
         if(account.getAccount_no().equals(accountNumber)) {
-            float accountBalance= accountRepository.getBalanceOfUser(userName,accountNumber);
+            Float accountBalance= accountRepository.getBalanceOfUser(userName,accountNumber);
             return accountBalance;
         }
         else
-            throw new AccountNotFoundException("Account doesn't exist",accountNumber);
+            throw new AccountNotFoundException("Account doesn't exist"+ accountNumber);
     }
-
-
 
 }
