@@ -1,5 +1,6 @@
 package com.bank.app.controller;
 
+import com.bank.app.model.Account;
 import com.bank.app.model.User;
 import com.bank.app.repository.UserRepository;
 import com.bank.app.service.IUserService;
@@ -37,6 +38,9 @@ public class UserControlllerTest {
 
     @MockBean
     UserRepository userRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     public void testCreateUser() throws Exception {
@@ -220,6 +224,44 @@ public class UserControlllerTest {
             throw new Exception("Invalid Email");
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
+
+    @Test
+    public void validateUser() throws Exception {
+        User user = new User();
+        user.setUserName("SalimAzar");
+        user.setUserUid("8665 5331 0291");
+        Mockito.when(userService.validateUserByEmail(Mockito.anyString(),Mockito.anyString())).thenReturn(user);
+
+        String url = "/api/userlogin/bc/Dayanand1*";
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .get(url).accept(MediaType.APPLICATION_JSON);
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+        String expectedJson =  objectMapper.writeValueAsString(user);
+        String actualJson = mvcResult.getResponse().getContentAsString();
+        assertNotSame(actualJson,expectedJson);
+
+
+    }
+
+    @Test
+    public void userLogin() throws Exception{
+        Account account = new Account();
+        account.setBalance((float)500);
+        account.setAccountType("savings");
+        Mockito.when(userService.validateLogin(Mockito.anyString(),Mockito.anyString())).thenReturn(account);
+
+        String url = "/api/userlogin/bc/Dayanand1*";
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .get(url).accept(MediaType.APPLICATION_JSON);
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+        String expectedJson =  objectMapper.writeValueAsString(account);
+        String actualJson = mvcResult.getResponse().getContentAsString();
+        assertNotSame(actualJson,expectedJson);
+
+    }
+
 
 
 
