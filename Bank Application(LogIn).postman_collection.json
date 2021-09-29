@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "2417dd90-90e5-47a5-9f0f-590aecb5b6e0",
+		"name": "Bank Application(LogIn)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"jay\",\r\n    \"middleName\": \"S\",\r\n    \"lastName\": \"Sree\",\r\n    \"userPan\": \"ABCGH1234F\",\r\n    \"userUid\": \"8665 5331 6789\",\r\n    \"dateOfBirth\": \"1998-09-20\",\r\n    \"password\": \"D@!asa1\",\r\n    \"userEmail\": \"dayanandviveki@Gmail.com\",\r\n    \"address\": \"Ahmednagar\",\r\n    \"mobileNo\": \"7798408988\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/saveuser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"saveuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Detailes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"firstName\": \"Dayadsd2121s\",\r\n    \"middleName\": \"wwwc\",\r\n    \"lastName\": \"Viveki\"\r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/updateUser/DayaqViveki",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"updateUser",
+								"DayaqViveki"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email Otp Validation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/user/otp/62126/DayaViveki19851000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"user",
+								"otp",
+								"62126",
+								"DayaViveki19851000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend Otp",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/resentOtp/DayaViveki19851",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"resentOtp",
+								"DayaViveki19851"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/userlogin/DayaViveki19851000/D@!asa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"userlogin",
+								"DayaViveki19851000",
+								"D@!asa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get All User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/getallUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"getallUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all active User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/getallactiveusers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"getallactiveusers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Inactive Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/getallinactiveusers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"getallinactiveusers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Details By UserName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/getuserbyusername/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"getuserbyusername",
+								"100"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
