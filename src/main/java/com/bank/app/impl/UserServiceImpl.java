@@ -18,7 +18,7 @@ import com.sendgrid.helpers.mail.objects.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
-import org.jetbrains.annotations.NotNull;
+
 
 import org.springframework.transaction.TransactionSystemException;
 import java.io.IOException;
@@ -35,9 +35,11 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     AccountRepository accountRepository;
 
+
+
     static Integer otp;
 
-    public void sendOtp(@NotNull User user){
+    public void sendOtp(User user){
 
         Email from = new Email("akshay2navilkar@gmail.com");
         String subject = "Email OTP Verification";
