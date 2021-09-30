@@ -129,8 +129,8 @@ class UserServiceImplTest {
     @Order(8)
     public void test_getUserNameByUser() {
         Optional opt = Optional.ofNullable(listUser.get(0));
-        when(userRepository.findById(listUser.get(0).getUserName())).thenReturn(opt);
-        AssertionsForClassTypes.assertThat(userServiceImpl.getUserByUsername("aksNav4528")).isEqualTo(listUser.get(0));
+        when(userRepository.findById("DayanandViveki8998")).thenReturn(opt);
+        AssertionsForClassTypes.assertThat(userServiceImpl.getUserByUsername("DayanandViveki8998")).isEqualTo(listUser.get(0));
     }
 
 }

@@ -135,7 +135,7 @@ public class UserControlllerTest {
 
         mockMvc.perform(get("/api/getallinactiveusers")
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()) ;
     }
 
     @Test
