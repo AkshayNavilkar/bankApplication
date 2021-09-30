@@ -12,7 +12,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer transaction_id;
 
-    private enum StatusEnum {
+    public enum StatusEnum {
         debit, credit
     }
 
