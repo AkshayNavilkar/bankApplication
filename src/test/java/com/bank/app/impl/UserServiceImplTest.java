@@ -16,6 +16,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+
 @SpringBootTest
 class UserServiceImplTest {
 
@@ -117,8 +118,21 @@ class UserServiceImplTest {
         when(userRepository.save(listUser.get(0))).thenReturn(listUser.get(0));
         assertThat(userServiceImpl.updateUser(listUser.get(0).getUserName(),listUser.get(1)).getUserName()).isEqualTo(listUser.get(0).getUserName());
     }
+    @Test
+    @Order(5)
+    public void test_getAllUser() {
+        when(userRepository.findAll()).thenReturn(listUser);
+        assertThat(userServiceImpl.getAllUser()).isEqualTo(listUser);
+    }
 
-     @Test
+    @Test
+    @Order(6)
+    public void test_getallactiveusers() {
+
+        when(userRepository.getAllActiveUser()).thenReturn(listUser);
+        assertThat(userServiceImpl.getAllActiveUser()).isEqualTo(listUser);
+    }
+    @Test
     @Order(7)
     public void test_getAllInActiveUsers() {
         when(userRepository.getAllInActiveUser()).thenReturn(listUser);

@@ -171,7 +171,23 @@ public class UserControlllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+    @Test
+    public void test_getAllUser() throws Exception {
 
+        when(userService.getAllUser()).thenReturn(listUser);
+        mockMvc.perform(get("/api/getallUsers")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void test_getAllActiveUsers() throws Exception {
+
+        when(userService.getAllActiveUser()).thenReturn(listUser);
+        mockMvc.perform(get("/api/getallactiveusers")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
 
 }
