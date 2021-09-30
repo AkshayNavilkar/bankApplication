@@ -108,7 +108,24 @@ public class UserControlllerTest {
         return listUser;
     }
 
-
+    @Test
+    public void test_createUser() throws Exception {
+        when(userService.createUser(Mockito.any(User.class))).thenReturn(listUser.get(0));
+        mockMvc.perform(post("/api/saveuser")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(mapToJson(listUser.get(0)))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void test_updateUser() throws Exception {
+        when(userService.updateUser(listUser.get(0).getUserName(),listUser.get(1))).thenReturn(listUser.get(0));
+        mockMvc.perform(put("/api/updateUser/daya")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(mapToJson(listUser.get(0)))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
 
     @Test

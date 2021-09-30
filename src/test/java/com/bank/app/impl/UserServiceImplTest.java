@@ -104,7 +104,19 @@ class UserServiceImplTest {
         return listUser;
     }
 
-
+    @Test
+    @Order(1)
+    void test_createUser() {
+        when(userRepository.save(listUser.get(0))).thenReturn(listUser.get(0));
+        assertThat(userServiceImpl.createUser(listUser.get(0))).isEqualTo(listUser.get(0));
+    }
+    @Test
+    @Order(2)
+    void test_updateUser() {
+        when(userRepository.findById(listUser.get(0).getUserName())).thenReturn(Optional.ofNullable(listUser.get(0)));
+        when(userRepository.save(listUser.get(0))).thenReturn(listUser.get(0));
+        assertThat(userServiceImpl.updateUser(listUser.get(0).getUserName(),listUser.get(1)).getUserName()).isEqualTo(listUser.get(0).getUserName());
+    }
 
      @Test
     @Order(7)
