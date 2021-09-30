@@ -1,7 +1,7 @@
 package com.bank.app.impl;
 
-import com.bank.app.exceptions.SendingFailedException;
-import com.bank.app.exceptions.ValidationFailedException;
+import com.bank.app.exception.SendingFailedException;
+import com.bank.app.exception.ValidationFailedException;
 import com.bank.app.model.Account;
 import com.bank.app.model.User;
 import com.bank.app.repository.AccountRepository;

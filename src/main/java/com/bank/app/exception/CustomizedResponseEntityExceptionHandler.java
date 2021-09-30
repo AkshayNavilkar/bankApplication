@@ -1,4 +1,4 @@
-package com.bank.app.exceptions;
+package com.bank.app.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.bank.app.exceptions;
+package com.bank.app.exception;
 
 import java.util.Date;
 
