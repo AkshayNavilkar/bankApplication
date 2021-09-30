@@ -2,23 +2,20 @@ package com.bank.app.impl;
 
 import com.bank.app.model.User;
 import com.bank.app.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 class UserServiceImplTest {
 
@@ -28,189 +25,100 @@ class UserServiceImplTest {
     @MockBean
     private UserRepository userRepository;
 
+    List<User> listUser = getListUser();
 
-    @Test
-    void createUser() {
-        User user = new User();
-        user.setUserName("aksNav4528");
-        user.setFirstName("aks");
-        user.setMiddleName("c");
-        user.setLastName("Nav");
-        user.setUserEmail("akshay.navilkar@gmail.com");
-        user.setAddress("Bangalore");
-        user.setUserUid("4163 8161 4672");
-        user.setUserPan("BCLPN8608M");
-        user.setDateOfBirth("1995-05-01");
-        user.setMobileNo("9886676258");
-        user.setPassword("Aks123@");
-        user.setOtp(null);
-        user.setIsActive(true);
-
-        Mockito.when(userRepository.save(user)).thenReturn(user);
-
-        assertThat(userServiceImpl.createUser(user)).isEqualTo(user);
+    private String mapToJson(Object object) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(object);
     }
 
-    @Test
-    @Order(1)
-    public void test_getAllUser() {
-        User user = new User();
+    public List<User> getListUser(){
 
-        user.setUserName("amani");
-        user.setFirstName("aam");
-        user.setMiddleName("a");
-        user.setLastName("ani");
-        user.setPassword("amani");
-        user.setUserPan("AMANI1234S");
-        user.setAddress("warangal");
-        user.setDateOfBirth("1998-03-31");
-        user.setUserEmail("amani@gmail.com");
-        user.setMobileNo("8309115978");
-        user.setUserUid("4445 2221 1111");
-        user.setOtp("null");
-        user.setIsActive(true);
+        List<User> listUser = new ArrayList<>();
 
         User user1 = new User();
-
-        user1.setUserName("samantha");
-        user1.setFirstName("sam");
-        user1.setMiddleName("a");
-        user1.setLastName("antha");
-        user1.setPassword("samantha");
-        user1.setUserPan("SAMAN1234S");
-        user1.setAddress("hyderabad");
-        user1.setDateOfBirth("1998-03-31");
-        user1.setUserEmail("sam@gmail.com");
-        user1.setMobileNo("8309115978");
-        user1.setUserUid("5555 2221 1111");
-        user1.setOtp("null");
-        user1.setIsActive(true);
-
-
-        List<User> users = new ArrayList<>();
-        users.add(user);
-        users.add(user1);
-
-        Mockito.when(userRepository.findAll()).thenReturn(users);
-        AssertionsForClassTypes.assertThat(userServiceImpl.getAllUser()).isEqualTo(users);
-    }
-
-    @Test
-    @Order(2)
-    public void test_getallactiveusers() {
-        User user = new User();
-
-
-        user.setUserName("amani");
-        user.setFirstName("aam");
-        user.setMiddleName("a");
-        user.setLastName("ani");
-        user.setPassword("amani");
-        user.setUserPan("AMANI1234S");
-        user.setAddress("warangal");
-        user.setDateOfBirth("1998-03-31");
-        user.setUserEmail("amani@gmail.com");
-        user.setMobileNo("8309115978");
-        user.setUserUid("4445 2221 1111");
-        user.setOtp("null");
-        user.setIsActive(true);
-
-        User user1 = new User();
-
-        user1.setUserName("samantha");
-        user1.setFirstName("sam");
-        user1.setMiddleName("a");
-        user1.setLastName("antha");
-        user1.setPassword("samantha");
-        user1.setUserPan("SAMAN1234S");
-        user1.setAddress("hyderabad");
-        user1.setDateOfBirth("1998-03-31");
-        user1.setUserEmail("sam@gmail.com");
-        user1.setMobileNo("8309115978");
-        user1.setUserUid("5555 2221 1111");
-        user1.setOtp("null");
-        user1.setIsActive(true);
-
-
-        List<User> users = new ArrayList<>();
-        users.add(user);
-        users.add(user1);
-
-        Mockito.when(userRepository.getAllActiveUser()).thenReturn(users);
-        AssertionsForClassTypes.assertThat(userServiceImpl.getAllActiveUser()).isEqualTo(users);
-    }
-    @Test
-    @Order(3)
-    public void test_getAllInActiveUsers() {
-        User user = new User();
-
-
-        user.setUserName("amani");
-        user.setFirstName("aam");
-        user.setMiddleName("a");
-        user.setLastName("ani");
-        user.setPassword("amani");
-        user.setUserPan("AMANI1234S");
-        user.setAddress("warangal");
-        user.setDateOfBirth("1998-03-31");
-        user.setUserEmail("amani@gmail.com");
-        user.setMobileNo("8309115978");
-        user.setUserUid("4445 2221 1111");
-        user.setOtp("null");
-        user.setIsActive(true);
-
-        User user1 = new User();
-
-        user1.setUserName("samantha");
-        user1.setFirstName("sam");
-        user1.setMiddleName("a");
-        user1.setLastName("antha");
-        user1.setPassword("samantha");
-        user1.setUserPan("SAMAN1234S");
-        user1.setAddress("hyderabad");
-        user1.setDateOfBirth("1998-03-31");
-        user1.setUserEmail("sam@gmail.com");
-        user1.setMobileNo("8309115978");
-        user1.setUserUid("5555 2221 1111");
-        user1.setOtp("null");
+        user1.setUserName("DayanandViveki8998");
+        user1.setFirstName("Dayanand");
+        user1.setMiddleName("s");
+        user1.setLastName("Viveki");
+        user1.setUserEmail("dayanandviveki@gmail.com");
+        user1.setAddress("Ahmednagar");
+        user1.setUserUid("8665 5331 0291");
+        user1.setUserPan("ABCDE1234F");
+        user1.setDateOfBirth("1997-09-20");
+        user1.setMobileNo("7798408988");
+        user1.setPassword("Aa@1");
+        user1.setOtp("89898");
         user1.setIsActive(false);
 
+        User user2 = new User();
+        user2.setUserName("sripada");
+        user2.setFirstName("sri");
+        user2.setMiddleName("i");
+        user2.setLastName("pada");
+        user2.setUserEmail("sripada@gmail.com");
+        user2.setAddress("warangal");
+        user2.setUserUid("4163 8161 4672");
+        user2.setUserPan("BCLPN8608M");
+        user2.setDateOfBirth("1995-05-01");
+        user2.setMobileNo("9886676258");
+        user2.setPassword("Am123@");
+        user2.setOtp(null);
+        user2.setIsActive(true);
 
-        List<User> users = new ArrayList<>();
-        users.add(user);
-        users.add(user1);
+        User user3 = new User();
+        user3.setUserName("sripada");
+        user3.setFirstName("sri");
+        user3.setMiddleName("i");
+        user3.setLastName("pada");
+        user3.setUserEmail("sripada@gmail.com");
+        user3.setAddress("warangal");
+        user3.setUserUid("4163 8161 4672");
+        user3.setUserPan("BCLPN8608M");
+        user3.setDateOfBirth("1995-05-01");
+        user3.setMobileNo("9886676258");
+        user3.setPassword("Am123@");
+        user3.setOtp(null);
+        user3.setIsActive(true);
 
-        Mockito.when(userRepository.getAllInActiveUser()).thenReturn(users);
-        AssertionsForClassTypes.assertThat(userServiceImpl.getAllInActiveUser()).isEqualTo(users);
+        User user4 = new User();
+        user4.setUserName("sripada");
+        user4.setFirstName("sri");
+        user4.setMiddleName("i");
+        user4.setLastName("pada");
+        user4.setUserEmail("sripada@gmail.com");
+        user4.setAddress("warangal");
+        user4.setUserUid("4163 8161 4672");
+        user4.setUserPan("BCLPN8608M");
+        user4.setDateOfBirth("1995-05-01");
+        user4.setMobileNo("9886676258");
+        user4.setPassword("Am123@");
+        user4.setOtp(null);
+        user4.setIsActive(true);
+
+        listUser.add(user1);
+        listUser.add(user2);
+        listUser.add(user3);
+        listUser.add(user4);
+
+        return listUser;
+    }
+
+
+
+     @Test
+    @Order(7)
+    public void test_getAllInActiveUsers() {
+        when(userRepository.getAllInActiveUser()).thenReturn(listUser);
+        AssertionsForClassTypes.assertThat(userServiceImpl.getAllInActiveUser()).isEqualTo(listUser);
     }
 
     @Test
-    @Order(1)
+    @Order(8)
     public void test_getUserNameByUser() {
-        User user = new User();
-
-        user.setUserName("amani");
-        user.setFirstName("aam");
-        user.setMiddleName("a");
-        user.setLastName("ani");
-        user.setPassword("amani");
-        user.setUserPan("AMANI1234S");
-        user.setAddress("warangal");
-        user.setDateOfBirth("1998-03-31");
-        user.setUserEmail("amani@gmail.com");
-        user.setMobileNo("8309115978");
-        user.setUserUid("4445 2221 1111");
-        user.setOtp("null");
-        user.setIsActive(true);
-
-        Optional<User> opt = Optional.ofNullable(user);
-
-        List<User> users = new ArrayList<>();
-        users.add(user);
-
-        Mockito.when(userRepository.findById(user.getUserName())).thenReturn(opt);
-
-        AssertionsForClassTypes.assertThat(userServiceImpl.getUserByUsername("amani")).isEqualTo(user);
+        Optional opt = Optional.ofNullable(listUser.get(0));
+        when(userRepository.findById(listUser.get(0).getUserName())).thenReturn(opt);
+        AssertionsForClassTypes.assertThat(userServiceImpl.getUserByUsername("aksNav4528")).isEqualTo(listUser.get(0));
     }
 
 }
