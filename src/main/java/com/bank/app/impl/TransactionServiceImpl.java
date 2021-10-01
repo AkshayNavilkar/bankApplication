@@ -25,7 +25,8 @@ public class TransactionServiceImpl implements ITransactionService {
 
     public Transaction closingBalance(Integer accountNo,Integer id) {
         Transaction transaction = transactionRepository.getTransactionByAccNoTransactionId(id,accountNo);
-        transaction.setClosingBalance(accountRepository.findById(accountNo).get().getBalance());
+        Account account = accountRepository.findById(accountNo).get();
+        transaction.setClosingBalance(account.getBalance());
         return transactionRepository.save(transaction);
     }
 
