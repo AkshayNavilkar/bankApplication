@@ -118,6 +118,33 @@ class UserServiceImplTest {
         when(userRepository.save(listUser.get(0))).thenReturn(listUser.get(0));
         assertThat(userServiceImpl.updateUser(listUser.get(0).getUserName(),listUser.get(1)).getUserName()).isEqualTo(listUser.get(0).getUserName());
     }
+
+    @Test
+    @Order(3)
+    void test_validateUserByEmail() {
+
+        Optional<User> opt = Optional.ofNullable(listUser.get(0));
+        when(userRepository.findById(listUser.get(0).getUserName())).thenReturn(opt);
+        when(userRepository.getOptValidation(listUser.get(0).getUserName())).thenReturn(opt);
+        when(userRepository.validationOtp(listUser.get(0).getUserName(),listUser.get(0).getOtp())).thenReturn(opt);
+        when(userRepository.save(opt.get())).thenReturn(opt.get());
+
+        assertThat(userServiceImpl.validateUserByEmail("89898","DayanandViveki8998").getIsActive()).isEqualTo(true);
+    }
+
+    @Test
+    @Order(4)
+    void test_resendOtp() {
+
+        Optional<User> opt = Optional.ofNullable(listUser.get(0));
+
+        when(userRepository.findById(listUser.get(0).getUserName())).thenReturn(opt);
+        when(userRepository.getOptValidation(listUser.get(0).getUserName())).thenReturn(opt);
+        when(userRepository.save(opt.get())).thenReturn(opt.get());
+
+        assertThat(userServiceImpl.resendOtp(listUser.get(0).getUserName()).getIsActive()).isEqualTo(false);
+    }
+
     @Test
     @Order(5)
     public void test_getAllUser() {
@@ -132,6 +159,7 @@ class UserServiceImplTest {
         when(userRepository.getAllActiveUser()).thenReturn(listUser);
         assertThat(userServiceImpl.getAllActiveUser()).isEqualTo(listUser);
     }
+
     @Test
     @Order(7)
     public void test_getAllInActiveUsers() {

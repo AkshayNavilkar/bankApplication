@@ -124,6 +124,7 @@ public class UserControlllerTest {
     public void test_createUser() throws Exception {
 
     }
+
     @Test
     public void test_updateUser() throws Exception {
         when(userService.createUser(Mockito.any(User.class))).thenReturn(listUser.get(0));
@@ -143,7 +144,6 @@ public class UserControlllerTest {
             System.err.println("Invalid Email");
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
-
 
     @Test
     public void test_getAllInActiveUsers() throws Exception {
@@ -184,6 +184,7 @@ public class UserControlllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
     @Test
     public void test_getAllUser() throws Exception {
 
