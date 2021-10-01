@@ -40,19 +40,19 @@ public class TransactionServiceTest {
     @BeforeEach
     public void setUp() {
         when(transactionRepository.save(Mockito.any())).thenReturn(dummyTransaction());
-        when(transactionRepository.getTransactionByAccNoTransactionId(Mockito.any(),Mockito.any())).thenReturn( dummyTransaction());
-        when(transactionRepository.findById(Mockito.any())).thenReturn(Optional.of(dummyTransaction()));
-        when(accountRepository.findById(Mockito.any()).get().getBalance()).thenReturn(dummyAccount().getBalance());
-    }
+           }
 
     @Test
     public void closingBalance() throws Exception {
-        Transaction transaction = transactionService.closingBalance(100000111,1);
-        assertNotNull(transaction.getClosingBalance());
-    }
+        Transaction transaction = dummyTransaction();
+        Account account = dummyAccount();
+        Optional<Account> optionalAccount = Optional.of(account);
+        when(transactionRepository.getTransactionByAccNoTransactionId(Mockito.any(),Mockito.any())).thenReturn( dummyTransaction());
+        when(accountRepository.findById(Mockito.any())).thenReturn(optionalAccount);
+        when(transactionRepository.save(Mockito.any())).thenReturn(dummyTransactionUpdateBalance());
 
-//    @Test
-//    public void
+        assertEquals(transactionService.closingBalance(100000111,1).getClosingBalance(),account.getBalance());
+    }
 
 
 
@@ -78,14 +78,13 @@ public class TransactionServiceTest {
     private static Transaction dummyTransactionUpdateBalance() {
         Transaction transaction = dummyTransaction();
         transaction.setClosingBalance(1500F);
-//        Transaction transaction1 = Optional.of(transaction).orElseGet(null);
         return transaction;
     }
     private static Account dummyAccount() {
         Account account = new Account();
         account.setAccount_no(100000111);
         account.setAccount_type(Account.StatusEnum.savings);
-        account.setBalance(1000F);
+        account.setBalance(1500F);
         account.setUser_name("Soumya7895");
         account.setIFSC("BANK0001235");
         return account;
