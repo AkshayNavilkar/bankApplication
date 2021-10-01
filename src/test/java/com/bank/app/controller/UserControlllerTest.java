@@ -5,17 +5,25 @@ import com.bank.app.model.User;
 import com.bank.app.service.IUserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -114,21 +122,26 @@ public class UserControlllerTest {
 
     @Test
     public void test_createUser() throws Exception {
-        when(userService.createUser(Mockito.any(User.class))).thenReturn(listUser.get(0));
-        mockMvc.perform(post("/api/saveuser")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(mapToJson(listUser.get(0)))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+
     }
     @Test
     public void test_updateUser() throws Exception {
-        when(userService.updateUser(listUser.get(0).getUserName(),listUser.get(1))).thenReturn(listUser.get(0));
-        mockMvc.perform(put("/api/updateUser/daya")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(mapToJson(listUser.get(0)))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+        when(userService.createUser(Mockito.any(User.class))).thenReturn(listUser.get(0));
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post("/api/saveuser").accept(MediaType.APPLICATION_JSON).content(mapToJson(listUser.get(0)))
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = mvcResult.getResponse();
+        String outputToJson = response.getContentAsString();
+        User inputJson = new ObjectMapper().readValue(mapToJson(listUser.get(0)), User.class);
+        User outputJson = new ObjectMapper().readValue(outputToJson, User.class);
+        assertNotSame(outputJson.getUserName(),inputJson.getUserName());
+        assertNotSame(outputJson.getUserEmail(),inputJson.getUserEmail());
+        assertNotSame(outputJson.getPassword(), inputJson.getPassword());
+        if(!EmailValidator.getInstance().isValid(inputJson.getUserEmail()))
+            System.err.println("Invalid Email");
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
 
