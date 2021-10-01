@@ -122,11 +122,6 @@ public class UserControlllerTest {
 
     @Test
     public void test_createUser() throws Exception {
-
-    }
-
-    @Test
-    public void test_updateUser() throws Exception {
         when(userService.createUser(Mockito.any(User.class))).thenReturn(listUser.get(0));
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/api/saveuser").accept(MediaType.APPLICATION_JSON).content(mapToJson(listUser.get(0)))
@@ -143,6 +138,16 @@ public class UserControlllerTest {
         if(!EmailValidator.getInstance().isValid(inputJson.getUserEmail()))
             System.err.println("Invalid Email");
         assertEquals(HttpStatus.OK.value(), response.getStatus());
+    }
+
+    @Test
+    public void test_updateUser() throws Exception {
+        when(userService.updateUser(listUser.get(0).getUserName(),listUser.get(1))).thenReturn(listUser.get(0));
+        mockMvc.perform(put("/api/updateUser/daya")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(mapToJson(listUser.get(0)))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
