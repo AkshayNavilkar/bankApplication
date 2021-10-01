@@ -26,11 +26,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@ComponentScan(basePackages ="com.bank.app")
 @AutoConfigureMockMvc
 @ContextConfiguration
-@SpringBootTest(classes = {TransactionControllerTest.class})
+@SpringBootTest(classes= {TransactionControllerTest.class})
 public class TransactionControllerTest {
     @Autowired
     MockMvc mockmvc;
@@ -93,12 +91,15 @@ public class TransactionControllerTest {
 
     }
 
-   @Test
+    @Test
     public void updateBalanceTest() throws Exception {
         Transaction transaction = new Transaction();
         transaction.setTransaction_id(1);
         transaction.setAccount_no(100000111);
         transaction.setClosingBalance((float) 1500);
+        transaction.setBeneficiaryAccount_no(100000112);
+        transaction.setTransactionAmount(100F);
+        transaction.setTransaction_type(Transaction.StatusEnum.debit);
 
         when(transactionService.closingBalance(100000111,1)).thenReturn(transaction);
 
@@ -113,5 +114,5 @@ public class TransactionControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andDo(print());
-   }
+    }
 }

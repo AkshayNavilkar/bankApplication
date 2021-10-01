@@ -90,4 +90,8 @@ public class Transaction {
         this.beneficiaryAccount_no = beneficiaryAccount_no;
     }
 
+    public Transaction(){
+
+    }
+
 }
