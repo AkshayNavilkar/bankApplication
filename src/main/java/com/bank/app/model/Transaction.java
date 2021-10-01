@@ -32,6 +32,15 @@ public class Transaction {
     @Column(name = "closing_balance")
     private Float closingBalance;
 
+    public Transaction(Integer transaction_id, StatusEnum transaction_type, Integer account_no, Float transactionAmount, Integer beneficiaryAccount_no, Float closingBalance) {
+        this.transaction_id = transaction_id;
+        this.transaction_type = transaction_type;
+        this.account_no = account_no;
+        this.transactionAmount = transactionAmount;
+        this.beneficiaryAccount_no = beneficiaryAccount_no;
+        this.closingBalance = closingBalance;
+    }
+
     public Float getClosingBalance() {
         return closingBalance;
     }
