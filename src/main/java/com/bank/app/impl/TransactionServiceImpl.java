@@ -40,7 +40,7 @@ public class TransactionServiceImpl implements ITransactionService {
     }
 
     public void isStatus(Integer transactionId,Integer accountNo)  {
-        Transaction transaction=transactionRepository.findById(transactionId).get();
+        Transaction transaction = transactionRepository.findById(transactionId).get();
         Account account = accountRepository.findById(accountNo).get();
         String x = transaction.getTransaction_type()+"";
         if(x.equals("debit"))

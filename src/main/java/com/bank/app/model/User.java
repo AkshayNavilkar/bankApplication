@@ -1,6 +1,6 @@
 package com.bank.app.model;
 
-import lombok.Data;
+import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -86,4 +86,5 @@ public class User {
     @Column(name = "otp")
     @Pattern(regexp = otpPattern, message = "Invalid Opt It contains only numbers !!!")
     private String otp;
+
 }
