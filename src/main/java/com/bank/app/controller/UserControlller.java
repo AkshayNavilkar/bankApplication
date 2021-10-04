@@ -24,7 +24,7 @@ public class UserControlller {
     @Autowired
     private IUserService userService;
 
-    public final String UPLOAD_DIR = "C:\\Users\\Lenovo\\Downloads\\BankRepo1.1\\BankRepo\\image";
+    public final String UPLOAD_DIR = "D:/Intelij Work/bankApplication/image";
 
     @PostMapping("/saveuser")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
