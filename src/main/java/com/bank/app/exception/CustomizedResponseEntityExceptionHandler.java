@@ -45,7 +45,18 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
         return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
+    @ExceptionHandler(AccountNotFoundException.class)
+    public final ResponseEntity<Object> handleAccountNotFoundException(AccountNotFoundException ex,WebRequest request) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(),ex.getMessage(),
+                        request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse,HttpStatus.NOT_FOUND);
+    }
+   @ExceptionHandler(InsufficientBalanceException.class)
+   public  final  ResponseEntity<Object>handleInsufficientBalanceException(InsufficientBalanceException ex,WebRequest request){
+        ExceptionResponse exceptionResponse= new ExceptionResponse(new Date(),ex.getMessage(),request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+   }
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid
             (MethodArgumentNotValidException ex,

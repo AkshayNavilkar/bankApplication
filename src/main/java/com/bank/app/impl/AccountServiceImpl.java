@@ -1,15 +1,13 @@
 package com.bank.app.impl;
 
-import com.bank.app.exception.ValidationFailedException;
+import com.bank.app.exception.AccountNotFoundException;
 import com.bank.app.model.Account;
 import com.bank.app.repository.AccountRepository;
 import com.bank.app.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionSystemException;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class AccountServiceImpl implements IAccountService {
@@ -19,39 +17,51 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public Account createAccount(Account account) {
-        Account  newAccount = null;
-        try{
-            newAccount = accountRepository.save(account);
-        }catch(NullPointerException npe){
-            throw new ValidationFailedException("Invalid User Details !!!");
-        }catch(NoSuchElementException nsee){
-            throw new ValidationFailedException("Invalid Username !!!");
-        }catch(TransactionSystemException tse){
-            throw new ValidationFailedException("Database getting Error !!!");
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return newAccount;
+
+        account.setAccount_type(account.getAccount_type());
+        account.setBalance(account.getBalance());
+        account.setUser_name(account.getUser_name());
+        account.setIFSC("BANK0005943");
+
+        return accountRepository.save(account);
     }
 
     @Override
-    public List<Account> getAllAccounts() {
+    public Account depositBalance(Integer accountNo,Float balance) {
+        Account account = accountRepository.findById(accountNo).get();
+        account.setBalance(account.getBalance()+balance);
+        return accountRepository.save(account);
+    }
+
+    @Override
+    public Account getByAccountNumber(Integer accountNumber) {
+        Account account = accountRepository.findById(accountNumber).get();
+        if(account.getAccount_no().equals(accountNumber)) {
+            return accountRepository.findById(accountNumber).get();
+        }
+        else {
+            throw new AccountNotFoundException("Account doesn't exist"+ accountNumber);
+        }
+    }
+
+    @Override
+    public Account getByUserName(String userName) {
+        return accountRepository.getAllAccountByUserName(userName);
+    }
+    @Override
+    public List<Account> getAllAccount() {
         return accountRepository.findAll();
     }
 
     @Override
-    public Account getAccountByAccNo(Integer accno) {
-        Account findAccount =  null;
-
-        try{
-            findAccount = accountRepository.findById(accno).get();
-        }catch(NullPointerException npe){
-            throw new ValidationFailedException("Invalid User Details !!!");
-        }catch(NoSuchElementException nsee){
-            throw new ValidationFailedException("Invalid Account Number !!!");
+    public Float getBalanceOfUser(String userName, Integer accountNumber) {
+        Account account = accountRepository.findById(accountNumber).get();
+        if(account.getAccount_no().equals(accountNumber)) {
+            Float accountBalance= accountRepository.getBalanceOfUser(userName,accountNumber);
+            return accountBalance;
         }
-        return findAccount;
+        else
+            throw new AccountNotFoundException("Account doesn't exist"+ accountNumber);
     }
-
 
 }

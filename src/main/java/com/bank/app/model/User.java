@@ -86,5 +86,4 @@ public class User {
     @Column(name = "otp")
     @Pattern(regexp = otpPattern, message = "Invalid Opt It contains only numbers !!!")
     private String otp;
-
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, String>{
 
 	@Query(value = "SELECT * FROM user where isactive = true",nativeQuery = true)
 	List<User> getAllActiveUser();
