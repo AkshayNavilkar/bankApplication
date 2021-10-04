@@ -1,6 +1,7 @@
 package com.bank.app.model;
 
 import lombok.Data;
+import lombok.extern.apachecommons.CommonsLog;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -79,6 +80,9 @@ public class User {
     @Pattern(regexp = uidPattern, message = "Invalid Aadhar Number")
     @Column(name = "user_uid")
     private String userUid;
+
+    @Column(name = "user_photo")
+    private  String userPhotoPath;
 
     @Column(name = "isactive")
     private Boolean isActive;

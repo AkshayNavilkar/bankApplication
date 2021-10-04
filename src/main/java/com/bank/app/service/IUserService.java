@@ -25,5 +25,5 @@ public interface IUserService {
 
     public Account validateLogin(String userName, String password);
 
-
+    public User setUserPhoto(String userName,String filepath);
 }
