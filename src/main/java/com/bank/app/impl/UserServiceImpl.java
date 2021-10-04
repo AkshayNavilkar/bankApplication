@@ -14,13 +14,11 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
-
-
 import org.springframework.transaction.TransactionSystemException;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -31,11 +29,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     UserRepository userRepository;
-
+    
     @Autowired
     AccountRepository accountRepository;
-
-
 
     static Integer otp;
 
@@ -69,7 +65,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User createUser(User user){
-        User newUser = null;
+    	User newUser = null;
 
         try{
             sendOtp(user);
@@ -88,6 +84,33 @@ public class UserServiceImpl implements IUserService {
             e.printStackTrace();
         }
         return  newUser;
+    }
+
+    @Override
+    public User setUserPhoto(String userName, String filepath) {
+        User oldUser= null;
+        try{
+            oldUser = userRepository.findById(userName).get();
+            if(filepath != null)
+                oldUser.setUserPhotoPath(filepath);
+
+            sendOtp(oldUser);
+            oldUser.setIsActive(false);
+            oldUser.setOtp(String.valueOf(otp));
+            oldUser = userRepository.save(oldUser);
+        }catch(NullPointerException npe){
+            throw new ValidationFailedException("Invalid User Details !!!");
+        }catch(NoSuchElementException nsee){
+            throw new ValidationFailedException("Invalid Username !!!");
+        }catch(TransactionSystemException tse){
+            throw new ValidationFailedException("Database getting Error !!!");
+        }catch(HttpMessageNotReadableException hmnqe){
+            throw new ValidationFailedException("Invalid User Details !!!");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return oldUser;
     }
 
     @Override
@@ -138,7 +161,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User validateUserByEmail(String otp, String userName) {
+	public User validateUserByEmail(String otp, String userName) {
 
         User user = null;
         String msg = null;
@@ -166,7 +189,7 @@ public class UserServiceImpl implements IUserService {
             throw new ValidationFailedException(msg);
         }
         return user;
-    }
+	}
 
     @Override
     public User resendOtp(String userName)  {
@@ -194,19 +217,19 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<User> getAllUser() {
-        return userRepository.findAll();
-    }
+	public List<User> getAllUser() {
+		return userRepository.findAll();
+	}
+	
+	@Override
+	public List<User> getAllActiveUser() {
+		return userRepository.getAllActiveUser();
+	}
 
     @Override
-    public List<User> getAllActiveUser() {
-        return userRepository.getAllActiveUser();
-    }
-
-    @Override
-    public List<User> getAllInActiveUser() {
-        return userRepository.getAllInActiveUser();
-    }
+	public List<User> getAllInActiveUser() {
+		return userRepository.getAllInActiveUser();
+	}
 
     @Override
     public User getUserByUsername(String userName) {
@@ -251,4 +274,5 @@ public class UserServiceImpl implements IUserService {
         }
         return findAccount;
     }
+
 }
