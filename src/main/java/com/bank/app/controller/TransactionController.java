@@ -33,5 +33,4 @@ public class TransactionController {
         return new ResponseEntity<>(transactionService.getTransactionByAccountNo(accountNumber), HttpStatus.OK);
     }
 
-
 }

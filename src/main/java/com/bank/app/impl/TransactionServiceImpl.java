@@ -25,7 +25,8 @@ public class TransactionServiceImpl implements ITransactionService {
 
     public Transaction closingBalance(Integer accountNo,Integer id) {
         Transaction transaction = transactionRepository.getTransactionByAccNoTransactionId(id,accountNo);
-        transaction.setClosingBalance(accountRepository.findById(accountNo).get().getBalance());
+        Account account = accountRepository.findById(accountNo).get();
+        transaction.setClosingBalance(account.getBalance());
         return transactionRepository.save(transaction);
     }
 
@@ -40,7 +41,7 @@ public class TransactionServiceImpl implements ITransactionService {
     }
 
     public void isStatus(Integer transactionId,Integer accountNo)  {
-        Transaction transaction=transactionRepository.findById(transactionId).get();
+        Transaction transaction = transactionRepository.findById(transactionId).get();
         Account account = accountRepository.findById(accountNo).get();
         String x = transaction.getTransaction_type()+"";
         if(x.equals("debit"))
