@@ -1,16 +1,10 @@
 package com.bank.app.model;
 
-import lombok.*;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.validator.routines.EmailValidator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.regex.Matcher;
 
-@Data
 @Entity
 @Table(name = "user")
 public class User {
@@ -80,6 +74,9 @@ public class User {
     @Column(name = "user_uid")
     private String userUid;
 
+    @Lob
+    private byte[] image;
+
     @Column(name = "isactive")
     private Boolean isActive;
 
@@ -87,4 +84,135 @@ public class User {
     @Pattern(regexp = otpPattern, message = "Invalid Opt It contains only numbers !!!")
     private String otp;
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserPan() {
+        return userPan;
+    }
+
+    public void setUserPan(String userPan) {
+        this.userPan = userPan;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    public String getUserUid() {
+        return userUid;
+    }
+
+    public void setUserUid(String userUid) {
+        this.userUid = userUid;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
+    }
+
+    public User(String userName, String password, String firstName, String middleName, String lastName, String userEmail, String userPan, String dateOfBirth, String address, String mobileNo, String userUid, byte[] image, Boolean isActive, String otp) {
+        this.userName = userName;
+        this.password = password;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.userEmail = userEmail;
+        this.userPan = userPan;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.mobileNo = mobileNo;
+        this.userUid = userUid;
+        this.image = image;
+        this.isActive = isActive;
+        this.otp = otp;
+    }
+
+    public User() {
+    }
 }

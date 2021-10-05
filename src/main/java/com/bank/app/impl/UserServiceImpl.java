@@ -1,5 +1,6 @@
 package com.bank.app.impl;
 
+import com.bank.app.exception.MultiPartFileUploadException;
 import com.bank.app.exception.SendingFailedException;
 import com.bank.app.exception.ValidationFailedException;
 import com.bank.app.model.Account;
@@ -15,15 +16,20 @@ import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
 import org.jetbrains.annotations.NotNull;
 
 import org.springframework.transaction.TransactionSystemException;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -73,7 +79,7 @@ public class UserServiceImpl implements IUserService {
             sendOtp(user);
             String usernName = user.getFirstName()+user.getLastName()+new Random().nextInt(9999);
             user.setUserName(usernName);
-            user.setIsActive(false);
+            user.setActive(false);
             user.setOtp(String.valueOf(otp));
             newUser =  userRepository.save(user);
         }catch(NullPointerException npe){
@@ -117,7 +123,7 @@ public class UserServiceImpl implements IUserService {
                 oldUser.setPassword(user.getPassword());
 
             sendOtp(oldUser);
-            oldUser.setIsActive(false);
+            oldUser.setActive(false);
             oldUser.setOtp(String.valueOf(otp));
             oldUser = userRepository.save(oldUser);
         }catch(NullPointerException npe){
@@ -151,7 +157,7 @@ public class UserServiceImpl implements IUserService {
             user = userRepository.validationOtp(userName, otp).get();
 
             user.setOtp(null);
-            user.setIsActive(true);
+            user.setActive(true);
 
             user = userRepository.save(user);
 
@@ -242,11 +248,37 @@ public class UserServiceImpl implements IUserService {
 
         }catch(NullPointerException npe){
             throw new ValidationFailedException("Invalid User Details !!!");
-        }catch(NoSuchElementException nsee){
-            throw new ValidationFailedException(msg);
-        }catch(Exception e){
+        } catch(Exception nsee){
             throw new ValidationFailedException(msg);
         }
         return findAccount;
     }
+
+    @Override
+    public User saveImage(String username , MultipartFile file) throws IOException {
+        String fileName = file.getOriginalFilename();
+        System.out.println(fileName);
+        User user = userRepository.findById(username).get();
+        if(!file.isEmpty()) {
+            user.setImage(file.getBytes());
+            return userRepository.save(user);
+        } else {
+            return null;
+        }
+
+    }
+
+    public void getImage(String username, HttpServletResponse response) throws IOException {
+        Optional<User> user = userRepository.findById(username);
+        if(user.isPresent()) {
+            response.getOutputStream().write(user.get().getImage());
+            response.getOutputStream().close();
+        } else {
+            System.out.println("User is not active");
+        }
+    }
+
+
+
+
 }
