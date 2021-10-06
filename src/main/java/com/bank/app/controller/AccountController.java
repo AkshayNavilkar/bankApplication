@@ -2,9 +2,17 @@ package com.bank.app.controller;
 
 import com.bank.app.impl.AccountServiceImpl;
 import com.bank.app.model.Account;
+import com.bank.app.model.AuthenticationRequest;
+import com.bank.app.model.AuthenticationResponse;
+import com.bank.app.security.UserDetailService;
+import com.bank.app.security.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,6 +25,15 @@ public class AccountController {
 
     @Autowired
     private AccountServiceImpl accountService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserDetailService myUserDetailService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @PostMapping("account")
     public ResponseEntity<Account> createAccount(@RequestBody Account newAccount) {
@@ -51,6 +68,20 @@ public class AccountController {
     public String getBalanceOfUser(@PathVariable String userName, @PathVariable Integer accountNo) {
         Float balanceOfUser = accountService.getBalanceOfUser(userName, accountNo);
         return "Your Available balance is: "+balanceOfUser;
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest auth) throws Exception{
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(auth.getUserName(), auth.getPassword()));
+        }
+        catch (BadCredentialsException e){
+            throw new Exception("Incorrect UserName or Password",e);
+
+        }
+        final UserDetails userDetails=myUserDetailService.loadUserByUsername(auth.getUserName());
+        final String jwt= jwtUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
 }
