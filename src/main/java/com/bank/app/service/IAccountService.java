@@ -1,8 +1,8 @@
 package com.bank.app.service;
 
-import com.bank.app.model.Account;
-
 import java.util.List;
+
+import com.bank.app.model.Account;
 
 public interface IAccountService {
 

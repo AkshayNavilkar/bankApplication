@@ -1,33 +1,32 @@
 package com.bank.app.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.bank.app.model.Account;
 import com.bank.app.model.User;
 import com.bank.app.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
 public class UserControlller {
 
-    @Value("${uploadDir}")
-    private String uploadFolder;
-
     @Autowired
     private IUserService userService;
 
-    @PostMapping("/saveuser")
+    @PostMapping("/createuser")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         return new ResponseEntity<User>(userService.createUser(user),HttpStatus.OK);
     }
@@ -71,21 +70,4 @@ public class UserControlller {
     public ResponseEntity<Account> userLogin(@PathVariable("username") String userName, @PathVariable("password") String password) {
         return new ResponseEntity<Account>(userService.validateLogin(userName, password),HttpStatus.OK);
     }
-
-    @GetMapping("/userlogin/{username}")
-    public void getImage(@PathVariable String username, HttpServletResponse response) throws IOException {
-        userService.getImage(username,response);
-    }
-
-    @PatchMapping("/userlogin/{username}/uploadImg")
-    public ResponseEntity<User> saveImage(@PathVariable("username") String username, @RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
-
-        String fileDir = request.getServletContext().getRealPath(uploadFolder);
-        byte[] bytes = file.getBytes();
-        User user = new User();
-        user.setImage(bytes);
-        return new ResponseEntity<>(userService.saveImage(username,file),HttpStatus.OK);
-
-    }
-
 }
