@@ -1,9 +1,8 @@
 package com.bank.app.service;
 
-import com.bank.app.model.Transaction;
-
-import java.rmi.ServerException;
 import java.util.List;
+
+import com.bank.app.model.Transaction;
 
 public interface ITransactionService {
 

@@ -1,9 +1,9 @@
 package com.bank.app.service;
 
+import java.util.List;
+
 import com.bank.app.model.Account;
 import com.bank.app.model.User;
-
-import java.util.List;
 
 public interface IUserService {
 

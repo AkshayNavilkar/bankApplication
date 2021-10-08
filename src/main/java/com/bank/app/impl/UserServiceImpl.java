@@ -1,5 +1,16 @@
 package com.bank.app.impl;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Random;
+
+import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionSystemException;
+
 import com.bank.app.exception.SendingFailedException;
 import com.bank.app.exception.ValidationFailedException;
 import com.bank.app.model.Account;
@@ -14,17 +25,6 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.stereotype.Service;
-import org.jetbrains.annotations.NotNull;
-
-import org.springframework.transaction.TransactionSystemException;
-import java.io.IOException;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Random;
 
 @Service
 public class UserServiceImpl implements IUserService {
