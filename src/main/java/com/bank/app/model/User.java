@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.regex.Matcher;
 
-@Data
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -86,5 +86,151 @@ public class User {
     @Column(name = "otp")
     @Pattern(regexp = otpPattern, message = "Invalid Opt It contains only numbers !!!")
     private String otp;
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public String getUserPan() {
+		return userPan;
+	}
+
+	public void setUserPan(String userPan) {
+		this.userPan = userPan;
+	}
+
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
+	public String getUserUid() {
+		return userUid;
+	}
+
+	public void setUserUid(String userUid) {
+		this.userUid = userUid;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+
+	public static String getPasswordpattern() {
+		return passwordPattern;
+	}
+
+	public static String getEmailpattern() {
+		return emailPattern;
+	}
+
+	public static String getNamepattern() {
+		return namePattern;
+	}
+
+	public static String getmNamepattern() {
+		return m_namePattern;
+	}
+
+	public static String getAddrspattern() {
+		return addrsPattern;
+	}
+
+	public static String getMobilenopattern() {
+		return mobileNoPattern;
+	}
+
+	public static String getUidpattern() {
+		return uidPattern;
+	}
+
+	public static String getDatepattern() {
+		return datePattern;
+	}
+
+	public static String getPanpattern() {
+		return panPattern;
+	}
+
+	public static String getOtppattern() {
+		return otpPattern;
+	}
+    
+    
 
 }
