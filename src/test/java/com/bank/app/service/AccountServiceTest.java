@@ -131,7 +131,7 @@ public class AccountServiceTest {
 // preparing dummy data
         Account account = new Account();
         account.setAccount_no(100000111);
-        Optional<Account> account1 = Optional.ofNullable(account);
+        Optional<Account> account1 = Optional.of(account);
 
 // adding behavior
         when(accountRepository.findById(100000111)).thenReturn(account1);
