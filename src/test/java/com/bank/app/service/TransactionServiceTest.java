@@ -5,6 +5,7 @@ import com.bank.app.model.Account;
 import com.bank.app.model.Transaction;
 import com.bank.app.repository.AccountRepository;
 import com.bank.app.repository.TransactionRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -51,7 +52,7 @@ public class TransactionServiceTest {
         when(accountRepository.findById(Mockito.any())).thenReturn(optionalAccount);
         when(transactionRepository.save(Mockito.any())).thenReturn(dummyTransactionUpdateBalance());
 
-        assertEquals(transactionService.closingBalance(100000111,1).getClosingBalance(),account.getBalance());
+        Assertions.assertEquals(transactionService.closingBalance(100000111,1).getClosingBalance(),account.getBalance());
     }
 
 
@@ -59,11 +60,11 @@ public class TransactionServiceTest {
     @Test
     public void addTransactionTest()  {
         Transaction transaction = transactionService.addTransaction(dummyTransaction());
-        assertNotNull(transaction.getTransaction_type());
-        assertNotNull(transaction.getTransactionAmount());
-        assertNotNull(transaction.getAccount_no());
-        assertNotNull(transaction.getBeneficiaryAccount_no());
-        assertNotNull(transaction.getClosingBalance());
+        Assertions.assertNotNull(transaction.getTransaction_type());
+        Assertions.assertNotNull(transaction.getTransactionAmount());
+        Assertions.assertNotNull(transaction.getAccount_no());
+        Assertions.assertNotNull(transaction.getBeneficiaryAccount_no());
+        Assertions.assertNotNull(transaction.getClosingBalance());
     }
 
     private static List<Transaction> dummyTransactionList() {
@@ -90,8 +91,6 @@ public class TransactionServiceTest {
         return account;
     }
     private static Transaction dummyTransaction() {
-        Transaction transaction =
-                new Transaction(1, Transaction.StatusEnum.credit, 100000111, 500F, 100000112, 0F);
-        return transaction;
+        return new Transaction(1, Transaction.StatusEnum.credit, 100000111, 500F, 100000112, 0F);
     }
 }
