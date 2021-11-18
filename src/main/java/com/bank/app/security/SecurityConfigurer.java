@@ -10,11 +10,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @SuppressWarnings("deprecation")
 @Configuration
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	private JwtAuthenticationFilter jwtFilter;
 	@Autowired
 	private CustomUserDetailService customUserDetailsService;
 
@@ -61,6 +64,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated()
 				.and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
 	protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
