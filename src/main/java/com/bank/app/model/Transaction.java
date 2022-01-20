@@ -1,7 +1,6 @@
 package com.bank.app.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "transaction")

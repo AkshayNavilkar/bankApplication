@@ -1,9 +1,6 @@
 package com.bank.app.model;
 
-import org.intellij.lang.annotations.Pattern;
-
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "account")
